@@ -22,6 +22,11 @@ Collection of topojson boundaries to be used for building map visualisations
 - States: [states_2017](usa/states_2017.json)
 - Counties: [counties_2017](usa/counties_2017.json)
 
+#### Cities
+- New York: 
+    - Boroughs [boroughs](usa/cities/boroughs.json)
+    - Zip code tabulation areas [zcta](usa/cities/zcta.json)
+
 
 ### World
 - Countries: [world](world/world.json)
