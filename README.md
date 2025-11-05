@@ -15,8 +15,8 @@ Collection of topojson boundaries to be used for building map visualisations
 - International Territorial Level 3 (UK): [2021](gbr/ITL3_UK_2021.json)
 
 **Census:**
-- Lower layer Super Output Areas (England & Wales): [2001], [2011](gbr/LSOA_EW_2011.json), [2021]
-- Middle layer Super Output Areas (England & Wales): [2001], [2011](gbr/MSOA_EW_2011.json), [2021](gbr/MSOA_EW_2021.json)
+- Lower layer Super Output Areas (England & Wales): [2001](gbr/LSOA_EW_2001.json), [2011](gbr/LSOA_EW_2011.json), [2021](gbr/LSOA_EW_2001.json)
+- Middle layer Super Output Areas (England & Wales): [2001](gbr/MSOA_EW_2001.json), [2011](gbr/MSOA_EW_2011.json), [2021](gbr/MSOA_EW_2021.json)
 
 ### USA
 - States: [states_2017](usa/states_2017.json)
