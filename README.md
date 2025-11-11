@@ -47,7 +47,7 @@ Collection of topojson boundaries to be used for building map visualisations
 1. Get the raw GitHub file link to any of the TopoJSONs:
     - "https://raw.githubusercontent.com/jhellingsdata/map-data/refs/heads/main/{folder}/{map_filename}.json"
     - "https://raw.githubusercontent.com/jhellingsdata/map-data/refs/heads/main/gbr/ITL1_UK_2021.json"
-    - When viewing large files in GitHub, it may not show a button to access the 'raw' file. In these cases, add `raw=true` to the page URL and it will redirect to the raw link.
+    - **TIP** When viewing large files in GitHub, it may not show a button to access the 'raw' file. In these cases, add `?raw=true` to the page URL and it will redirect to the raw link, which can then be copied.
 
 Note: all TopoJSONs in this repo use the `geog` feature key. 
 

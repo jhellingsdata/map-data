@@ -1,0 +1,9 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/jhellingsdata/map-data/refs/heads/main/gbr/ITL1_UK_2021.json",
+        "format": {"feature": "geog", "type": "topojson"}
+    },
+    "mark": {"type": "geoshape"},
+    "projection": {"type": "mercator"}
+}

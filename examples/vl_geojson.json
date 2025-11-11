@@ -1,0 +1,9 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/jhellingsdata/jhellingsdata.github.io/refs/heads/main/Data/UK%20Map%20Data/MSOA_2021_200m.geojson",
+        "format": {"property": "features", "type": "json"}
+    },
+    "mark": {"type": "geoshape"},
+    "projection": {"type": "mercator"}
+}
