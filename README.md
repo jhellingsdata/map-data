@@ -26,6 +26,13 @@ Collection of topojson boundaries to be used for building map visualisations
 - Westminster Parliamentary Constituencies (UK): [Jul 2024](gbr/ELE_MP_UK_2024_07.json), [Dec 2021](gbr/ELE_MP_UK_2021_12.json), [Dec 2020](gbr/ELE_MP_UK_2020_12.json), [Dec 2019](gbr/ELE_MP_UK_2019_12.json), [Dec 2018](gbr/ELE_MP_UK_2018_12.json), [Dec 2017](gbr/ELE_MP_UK_2017_12.json), [Dec 2016](gbr/ELE_MP_UK_2016_12.json)
 - Westminster Parliamentary Constituencies (GB): [Dec 2015](gbr/ELE_MP_GB_2015_12.json)
 
+**Home Nations:**
+- United Kingdom (ENG, NIR, SCT, WLS): [CTRY_UK](gbr/CTRY_UK.json)
+- Great Britain: [CTRY_GB](gbr/CTRY_UK.json)
+- England & Wales: [CTRY_EW](gbr/CTRY_EW.json)
+- Nations: [England](gbr/CTRY_GB-ENG.json), [Northern Ireland](gbr/CTRY_GB-NIR.json), [Scotland](gbr/CTRY_GB-SCT.json), [Wales](gbr/CTRY_GB-WLS.json),
+
+
 ## USA
 - States: [states_2017](usa/states_2017.json)
 - Counties: [counties_2017](usa/counties_2017.json)
