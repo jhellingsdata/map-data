@@ -1,0 +1,29 @@
+{
+  "source": {
+    "id": "a15ab0a26ed541caaf98745f2621da72",
+    "title": "Local Authority Districts (December 2013) Boundaries GB BFC",
+    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD_DEC_2013_GB_BFC/FeatureServer",
+    "downloaded": "2026-07-01"
+  },
+  "processing": {
+    "boundary_type": "LAD_BFC",
+    "id_field": "LAD13CD",
+    "name_field": "LAD13NM",
+    "extra_fields": {
+      "area": "Shape__Area"
+    },
+    "simplification_pct": 50,
+    "method": "visvalingam weighted keep-shapes",
+    "projection": "wgs84",
+    "processed": "2026-07-01",
+    "mapshaper_version": "0.7.25"
+  },
+  "output": {
+    "file": "gbr/full/LAD_GB_2013_12.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 380,
+    "source_size_mb": 154.32,
+    "output_size_mb": 14.22
+  }
+}

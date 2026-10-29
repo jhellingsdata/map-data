@@ -1,0 +1,29 @@
+{
+  "source": {
+    "id": "2bbaef5230694f3abae4f9145a3a9800",
+    "title": "Lower layer Super Output Areas (December 2021) Boundaries EW BFC (V10)",
+    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_BFC_V10/FeatureServer",
+    "downloaded": "2026-06-29"
+  },
+  "processing": {
+    "boundary_type": "LSOA_BFC",
+    "id_field": "LSOA21CD",
+    "name_field": "LSOA21NM",
+    "extra_fields": {
+      "area": "Shape__Area"
+    },
+    "simplification_pct": 50,
+    "method": "visvalingam weighted keep-shapes",
+    "projection": "wgs84",
+    "processed": "2026-06-29",
+    "mapshaper_version": "0.7.25"
+  },
+  "output": {
+    "file": "gbr/full/LSOA_EW_2021.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 35672,
+    "source_size_mb": 1258.07,
+    "output_size_mb": 81.81
+  }
+}

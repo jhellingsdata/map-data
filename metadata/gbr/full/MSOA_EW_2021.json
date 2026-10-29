@@ -1,0 +1,29 @@
+{
+  "source": {
+    "id": "12baf1e6a44441208ffe5ba5ed063a68",
+    "title": "Middle layer Super Output Areas (December 2021) Boundaries EW BFC (V7)",
+    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Middle_layer_Super_Output_Areas_December_2021_Boundaries_EW_BFC_V7/FeatureServer",
+    "downloaded": "2026-06-29"
+  },
+  "processing": {
+    "boundary_type": "MSOA_BFC",
+    "id_field": "MSOA21CD",
+    "name_field": "MSOA21NM",
+    "extra_fields": {
+      "area": "Shape__Area"
+    },
+    "simplification_pct": 50,
+    "method": "visvalingam weighted keep-shapes",
+    "projection": "wgs84",
+    "processed": "2026-06-29",
+    "mapshaper_version": "0.7.25"
+  },
+  "output": {
+    "file": "gbr/full/MSOA_EW_2021.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 7264,
+    "source_size_mb": 627.75,
+    "output_size_mb": 41.1
+  }
+}

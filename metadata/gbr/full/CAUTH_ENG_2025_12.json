@@ -1,0 +1,29 @@
+{
+  "source": {
+    "id": "46d178d0a81241a0ae8637b9eddf2378",
+    "title": "Combined Authorities (December 2025) Boundaries EN BFC",
+    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Combined_Authorities_December_2025_Boundaries_EN_BFC/FeatureServer",
+    "downloaded": "2026-07-22"
+  },
+  "processing": {
+    "boundary_type": "CAUTH_BFC",
+    "id_field": "CAUTH25CD",
+    "name_field": "CAUTH25NM",
+    "extra_fields": {
+      "area": "Shape__Area"
+    },
+    "simplification_pct": 50,
+    "method": "visvalingam weighted keep-shapes",
+    "projection": "wgs84",
+    "processed": "2026-07-22",
+    "mapshaper_version": "0.7.25"
+  },
+  "output": {
+    "file": "gbr/full/CAUTH_ENG_2025_12.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 15,
+    "source_size_mb": 41.8,
+    "output_size_mb": 4.4
+  }
+}

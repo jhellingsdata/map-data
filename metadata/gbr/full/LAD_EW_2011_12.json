@@ -1,0 +1,29 @@
+{
+  "source": {
+    "id": "4710f4b9f8db4a4fa3edff5bc886bccc",
+    "title": "Local Authority Districts (December 2011) Boundaries EW BFC",
+    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_December_2011_FCB_EW_2022/FeatureServer",
+    "downloaded": "2026-07-01"
+  },
+  "processing": {
+    "boundary_type": "LAD_BFC",
+    "id_field": "lad11cd",
+    "name_field": "lad11nm",
+    "extra_fields": {
+      "area": "Shape__Area"
+    },
+    "simplification_pct": 50,
+    "method": "visvalingam weighted keep-shapes",
+    "projection": "wgs84",
+    "processed": "2026-07-01",
+    "mapshaper_version": "0.7.25"
+  },
+  "output": {
+    "file": "gbr/full/LAD_EW_2011_12.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 348,
+    "source_size_mb": 94.23,
+    "output_size_mb": 7.49
+  }
+}

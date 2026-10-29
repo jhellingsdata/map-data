@@ -1,0 +1,29 @@
+{
+  "source": {
+    "id": "127c4bda06314409a1fa0df505f510e6",
+    "title": "Local Authority Districts (December 2023) Boundaries UK BFC",
+    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_December_2023_Boundaries_UK_BFC/FeatureServer",
+    "downloaded": "2026-07-01"
+  },
+  "processing": {
+    "boundary_type": "LAD_BFC",
+    "id_field": "LAD23CD",
+    "name_field": "LAD23NM",
+    "extra_fields": {
+      "area": "Shape__Area"
+    },
+    "simplification_pct": 50,
+    "method": "visvalingam weighted keep-shapes",
+    "projection": "wgs84",
+    "processed": "2026-07-01",
+    "mapshaper_version": "0.7.25"
+  },
+  "output": {
+    "file": "gbr/full/LAD_UK_2023_12.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 361,
+    "source_size_mb": 250.54,
+    "output_size_mb": 22.22
+  }
+}
