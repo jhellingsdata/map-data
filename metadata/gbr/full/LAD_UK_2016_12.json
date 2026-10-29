@@ -1,16 +1,16 @@
 {
   "source": {
-    "id": "a5437543972f444bb99608b389e4c82c",
-    "title": "Local Authority Districts (December 2016) Boundaries UK BFC (WGS84)",
-    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD_Dec_2016_FCB_in_the_UK_WGS84_2022/FeatureServer",
-    "downloaded": "2026-07-01"
+    "id": "ed4fc01f849541bca7bb9044db5008a2",
+    "title": "Local Authority Districts (December 2016) Boundaries UK BFC",
+    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_December_2016_FCB_in_the_UK_2022/FeatureServer",
+    "downloaded": "2026-10-29"
   },
   "processing": {
     "boundary_type": "LAD_BFC",
     "id_field": "lad16cd",
     "name_field": "lad16nm",
     "extra_fields": {
-      "area": "computed:EPSG:27700"
+      "area": "Shape__Area"
     },
     "simplification_pct": 50,
     "method": "visvalingam weighted keep-shapes",
@@ -23,7 +23,7 @@
     "format": "topojson",
     "objects_key": "geog",
     "feature_count": 391,
-    "source_size_mb": 164.55,
+    "source_size_mb": 171.37,
     "output_size_mb": 15.75
   }
 }

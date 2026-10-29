@@ -32,10 +32,31 @@ Each nation file contains exactly the same shapes as the UK/EW file, just fewer 
 
 | Geography | England | Wales | Scotland | Northern Ireland |
 |---|---|---|---|---|
+| Local Authority Districts, May 2026 | [LAD_ENG_2026_05](LAD_ENG_2026_05.json) | [LAD_WLS_2026_05](LAD_WLS_2026_05.json) | [LAD_SCT_2026_05](LAD_SCT_2026_05.json) | [LAD_NIR_2026_05](LAD_NIR_2026_05.json) |
 | Local Authority Districts, Dec 2025 | [LAD_ENG_2025_12](LAD_ENG_2025_12.json) | [LAD_WLS_2025_12](LAD_WLS_2025_12.json) | [LAD_SCT_2025_12](LAD_SCT_2025_12.json) | [LAD_NIR_2025_12](LAD_NIR_2025_12.json) |
 | Westminster constituencies, Jul 2024 | [ELE_MP_ENG_2024_07](ELE_MP_ENG_2024_07.json) | [ELE_MP_WLS_2024_07](ELE_MP_WLS_2024_07.json) | [ELE_MP_SCT_2024_07](ELE_MP_SCT_2024_07.json) | [ELE_MP_NIR_2024_07](ELE_MP_NIR_2024_07.json) |
 | MSOA 2021 | [MSOA_ENG_2021](MSOA_ENG_2021.json) | [MSOA_WLS_2021](MSOA_WLS_2021.json) | – | – |
 | LSOA 2021 | [LSOA_ENG_2021](LSOA_ENG_2021.json) | [LSOA_WLS_2021](LSOA_WLS_2021.json) | – | – |
+
+### Older local authority versions
+
+Local authority codes change when councils merge or are reorganised. Data published for an
+older set of codes needs a map from the same period. There is one nation file for each
+distinct set of codes:
+
+| Nation | File | Use for data published on... |
+|---|---|---|
+| England | [LAD_ENG_2026_05](LAD_ENG_2026_05.json) | May 2025 onwards (new Sheffield and Barnsley codes) |
+| England | [LAD_ENG_2023_05](LAD_ENG_2023_05.json) | Apr 2023 – Apr 2025 (Cumberland, Westmorland and Furness, North Yorkshire, Somerset created) |
+| England | [LAD_ENG_2021_05](LAD_ENG_2021_05.json) | Apr 2021 – Mar 2023 (North and West Northamptonshire), incl. most 2021 Census outputs |
+| Scotland | [LAD_SCT_2026_05](LAD_SCT_2026_05.json) | 2019 onwards (new Glasgow City and North Lanarkshire codes) |
+| Scotland | [LAD_SCT_2018_12](LAD_SCT_2018_12.json) | 2018 (new Fife and Perth and Kinross codes) |
+| Scotland | [LAD_SCT_2016_12](LAD_SCT_2016_12.json) | before 2018 |
+| Wales | [LAD_WLS_2026_05](LAD_WLS_2026_05.json) | any date: the 22 codes have not changed since at least 2011 |
+| Northern Ireland | [LAD_NIR_2026_05](LAD_NIR_2026_05.json) | April 2015 onwards (the 11 current districts) |
+
+To check, compare the codes in your data with the map's `properties.id`. Codes that don't
+match usually mean the data and the map are from different versions.
 
 ```python
 import altair as alt
@@ -72,7 +93,7 @@ belongs to. Each one has the same name as the boundary file it matches:
 
 | Lookup | One row per | Columns |
 |---|---|---|
-| [lookups/LAD_UK_2025_12.csv](lookups/LAD_UK_2025_12.csv) | Local authority (Dec 2025, also valid for May 2025) | `lad_id`, `lad_name`, `ctry_*` country, `rgn_*` region (England only), `cauth_*` combined authority (England only), `itl1_*`, `itl2_*`, `itl3_*` |
+| [lookups/LAD_UK_2025_12.csv](lookups/LAD_UK_2025_12.csv) | Local authority (Dec 2025; codes also match May 2025 and May 2026. Combined authorities as of May 2025) | `lad_id`, `lad_name`, `ctry_*` country, `rgn_*` region (England only), `cauth_*` combined authority (England only), `itl1_*`, `itl2_*`, `itl3_*` |
 | [lookups/LSOA_EW_2021.csv](lookups/LSOA_EW_2021.csv) | LSOA (2021) | `lsoa_*`, `msoa_*`, `lad_*` (LAD Dec 2025) |
 
 Each `*` stands for `_id` and `_name`. The sources are official ONS lookups.

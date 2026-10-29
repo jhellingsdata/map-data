@@ -27,13 +27,25 @@ COVERAGE_NATIONS = {
     "EW": ["ENG", "WLS"],
 }
 
-# Source files to split. Add a file here to publish its nation subsets.
-SUBSET_SOURCES = [
-    "gbr/LAD_UK_2025_12.json",
-    "gbr/ELE_MP_UK_2024_07.json",
-    "gbr/LSOA_EW_2021.json",
-    "gbr/MSOA_EW_2021.json",
-]
+# Source files to split → nations to publish (None = every nation in its coverage).
+# Older LAD versions are published only for nations whose codes changed in that
+# release, so each nation has one file per distinct set of codes:
+#   England:  2025_05 Sheffield/Barnsley recoded; 2023_05 Cumbria, N Yorks, Somerset;
+#             2021_05 Northamptonshire split
+#   Scotland: 2019_04 Glasgow/N Lanarkshire recoded (same codes as 2025+);
+#             2018_12 Fife/Perth & Kinross recoded; 2016_12 codes before both
+#   Wales, NI: no code changes in any ONS UK release, so the latest version covers all
+SUBSET_SOURCES = {
+    "gbr/LAD_UK_2026_05.json": None,
+    "gbr/LAD_UK_2025_12.json": None,
+    "gbr/LAD_UK_2023_05.json": ["ENG"],
+    "gbr/LAD_UK_2021_05.json": ["ENG"],
+    "gbr/LAD_UK_2018_12.json": ["SCT"],
+    "gbr/LAD_UK_2016_12.json": ["SCT"],
+    "gbr/ELE_MP_UK_2024_07.json": None,
+    "gbr/LSOA_EW_2021.json": None,
+    "gbr/MSOA_EW_2021.json": None,
+}
 
 
 def subset_path(source: Path, nation: str) -> Path:
@@ -80,11 +92,11 @@ def build_subset(source: Path, nation: str) -> Path:
 
 
 def main():
-    for src in SUBSET_SOURCES:
+    for src, nations in SUBSET_SOURCES.items():
         source = Path(src)
         coverage = re.search(r"_(UK|GB|EW)_", source.name).group(1)
         print(source)
-        for nation in COVERAGE_NATIONS[coverage]:
+        for nation in nations or COVERAGE_NATIONS[coverage]:
             build_subset(source, nation)
 
 

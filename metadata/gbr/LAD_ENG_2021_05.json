@@ -1,0 +1,16 @@
+{
+  "source": {
+    "file": "gbr/LAD_UK_2021_05.json"
+  },
+  "processing": {
+    "filter": "id starts with 'E' (ENG)",
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/LAD_ENG_2021_05.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 309,
+    "output_size_mb": 0.23
+  }
+}

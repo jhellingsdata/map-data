@@ -10,7 +10,7 @@ Collection of topojson boundaries to be used for building map visualisations
 > **Need just Wales, a region, or a Combined Authority?** See the [UK filtering guide](gbr/README.md). It covers pre-filtered nation files, filtering in Altair / Vega-Lite, and lookup tables (LAD → country, region, combined authority, ITL; LSOA → MSOA → LAD).
 
 **Administrative:**
-- Local Authority Districts (UK): [Dec 2025](gbr/LAD_UK_2025_12.json), [May 2025](gbr/LAD_UK_2025_05.json), [Dec 2024](gbr/LAD_UK_2024_12.json), [May 2024](gbr/LAD_UK_2024_05.json), [Dec 2023](gbr/LAD_UK_2023_12.json), [May 2023](gbr/LAD_UK_2023_05.json), [Dec 2022](gbr/LAD_UK_2022_12.json), [May 2022](gbr/LAD_UK_2022_05.json), [Dec 2021](gbr/LAD_UK_2021_12.json)
+- Local Authority Districts (UK): [May 2026](gbr/LAD_UK_2026_05.json), [Dec 2025](gbr/LAD_UK_2025_12.json), [May 2025](gbr/LAD_UK_2025_05.json), [Dec 2024](gbr/LAD_UK_2024_12.json), [May 2024](gbr/LAD_UK_2024_05.json), [Dec 2023](gbr/LAD_UK_2023_12.json), [May 2023](gbr/LAD_UK_2023_05.json), [Dec 2022](gbr/LAD_UK_2022_12.json), [May 2022](gbr/LAD_UK_2022_05.json), [Dec 2021](gbr/LAD_UK_2021_12.json), [May 2021](gbr/LAD_UK_2021_05.json), [Dec 2018](gbr/LAD_UK_2018_12.json), [Dec 2016](gbr/LAD_UK_2016_12.json)
 - Combined Authorities (England): [Dec 2025](gbr/CAUTH_ENG_2025_12.json)
 
 **OECD/Eurostat:**
@@ -35,13 +35,13 @@ Collection of topojson boundaries to be used for building map visualisations
 - England & Wales: [CTRY_EW](gbr/CTRY_EW.json)
 - Nations: [England](gbr/CTRY_GB-ENG.json), [Northern Ireland](gbr/CTRY_GB-NIR.json), [Scotland](gbr/CTRY_GB-SCT.json), [Wales](gbr/CTRY_GB-WLS.json),
 
-**Nations (pre-filtered):** `ENG`, `WLS`, `SCT`, `NIR` versions of LAD Dec 2025 and Westminster constituencies Jul 2024, plus `ENG`, `WLS` versions of LSOA and MSOA 2021. See the [filtering guide](gbr/README.md#1-pre-filtered-nation-files).
+**Nations (pre-filtered):** `ENG`, `WLS`, `SCT`, `NIR` versions of LAD May 2026 and Dec 2025 and Westminster constituencies Jul 2024; earlier LAD versions where codes changed (England May 2023 and May 2021, Scotland Dec 2018 and Dec 2016); plus `ENG`, `WLS` versions of LSOA and MSOA 2021. See the [filtering guide](gbr/README.md#1-pre-filtered-nation-files).
 
 **Lookups:** [LAD Dec 2025 → country, region, combined authority, ITL](gbr/lookups/LAD_UK_2025_12.csv), [LSOA 2021 → MSOA → LAD](gbr/lookups/LSOA_EW_2021.csv)
 
 **High resolution (`gbr/full/`):**
 Near full-resolution versions, for zooming in on or filtering to small areas. These also include land area (`area`, m²) taken from the ONS full resolution (BFC, clipped to coastline) boundaries, which is useful for density calculations. Files are large (4–82 MB), so use them for subsets and local work, not whole-UK web charts.
-- Local Authority Districts: [UK Dec 2025](gbr/full/LAD_UK_2025_12.json), [UK May 2025](gbr/full/LAD_UK_2025_05.json), [UK Dec 2024](gbr/full/LAD_UK_2024_12.json), [UK May 2024](gbr/full/LAD_UK_2024_05.json), [UK Dec 2023](gbr/full/LAD_UK_2023_12.json), [UK Dec 2016](gbr/full/LAD_UK_2016_12.json), [GB Dec 2013](gbr/full/LAD_GB_2013_12.json), [EW Dec 2011](gbr/full/LAD_EW_2011_12.json)
+- Local Authority Districts: [UK May 2026](gbr/full/LAD_UK_2026_05.json), [UK Dec 2025](gbr/full/LAD_UK_2025_12.json), [UK May 2025](gbr/full/LAD_UK_2025_05.json), [UK Dec 2024](gbr/full/LAD_UK_2024_12.json), [UK May 2024](gbr/full/LAD_UK_2024_05.json), [UK Dec 2023](gbr/full/LAD_UK_2023_12.json), [UK Dec 2016](gbr/full/LAD_UK_2016_12.json), [GB Dec 2013](gbr/full/LAD_GB_2013_12.json), [EW Dec 2011](gbr/full/LAD_EW_2011_12.json)
 - Combined Authorities (England): [Dec 2025](gbr/full/CAUTH_ENG_2025_12.json)
 - Census (England & Wales): [LSOA 2021](gbr/full/LSOA_EW_2021.json), [MSOA 2021](gbr/full/MSOA_EW_2021.json)
 

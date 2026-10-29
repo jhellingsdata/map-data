@@ -105,6 +105,7 @@ uv run python -m scripts.pipeline catalog [--refresh]   # cache ONS catalog (raw
 uv run python -m scripts.pipeline search LAD_BFC        # list ONS versions; ✓ = already built
 uv run python -m scripts.pipeline process LAD           # build latest version
 uv run python -m scripts.pipeline process LAD --count 3 # build up to 3 missing versions
+uv run python -m scripts.pipeline process LAD --version UK_2021_05  # one specific version
 uv run python -m scripts.pipeline process LAD --all [--force]
 uv run python -m scripts.pipeline rebuild gbr/LAD_UK_2025_12.json  # re-process a published
                                                     # file from its metadata (current config)
@@ -147,6 +148,18 @@ builds every historic version ONS lists.
 ## Decision log
 Newest first. Record what was decided and why.
 
+- **2026-10-29** Older LAD nation subsets are published only at **code-change points**, one
+  per distinct set of codes for each nation (see the `SUBSET_SOURCES` comment). These were
+  found by comparing the codes in every ONS LAD release. Wales and NI have had no code
+  changes, so only the latest is published. Added UK LAD May 2026, May 2021, Dec 2018 and
+  Dec 2016 (standard), and May 2026 (full).
+- **2026-10-29** Catalog titles containing `(WGS84)`, `(Parts)` or `Census Merged` are
+  excluded (`TITLE_EXCLUDE`). WGS84 re-publishes have area in square degrees, and the BNG
+  original exists, so `gbr/full/LAD_UK_2016_12.json` was rebuilt from it and now uses ONS area.
+  The other two would overwrite real files with the same name.
+- **2026-10-29** mapshaper imports use `snap`. LAD May 2021 BGC has borders that don't
+  quite meet, which gave 10× the arcs (0.99 MB vs 0.41 MB) and unrepairable intersections.
+  On clean sources snap moves only a handful of points.
 - **2026-10-29** Added English Strategic Authorities (`SA_ENG_2025_12`, standard and full,
   `gbr/sa/<slug>/` drill-down folders, `lookups/SA_ENG_2025_12.csv`, and `sa_id`/`sa_name`
   in the LAD lookup). SAs are not an ONS geography and ONS `CAUTH` omits six of them, so

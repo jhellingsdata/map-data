@@ -1,0 +1,16 @@
+{
+  "source": {
+    "file": "gbr/LAD_UK_2026_05.json"
+  },
+  "processing": {
+    "filter": "id starts with 'S' (SCT)",
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/LAD_SCT_2026_05.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 32,
+    "output_size_mb": 0.12
+  }
+}

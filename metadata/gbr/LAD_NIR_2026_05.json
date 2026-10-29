@@ -1,0 +1,16 @@
+{
+  "source": {
+    "file": "gbr/LAD_UK_2026_05.json"
+  },
+  "processing": {
+    "filter": "id starts with 'N' (NIR)",
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/LAD_NIR_2026_05.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 11,
+    "output_size_mb": 0.02
+  }
+}
