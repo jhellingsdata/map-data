@@ -1,0 +1,16 @@
+{
+  "source": {
+    "file": "gbr/LSOA_EW_2021.json"
+  },
+  "processing": {
+    "filter": "id starts with 'E' (ENG)",
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/LSOA_ENG_2021.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 33755,
+    "output_size_mb": 7.6
+  }
+}

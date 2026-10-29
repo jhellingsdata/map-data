@@ -7,6 +7,8 @@ Collection of topojson boundaries to be used for building map visualisations
 
 ## UK
 
+> **Need just Wales, a region, or a Combined Authority?** See the [UK filtering guide](gbr/README.md). It covers pre-filtered nation files, filtering in Altair / Vega-Lite, and lookup tables (LAD → country, region, combined authority, ITL; LSOA → MSOA → LAD).
+
 **Administrative:**
 - Local Authority Districts (UK): [Dec 2025](gbr/LAD_UK_2025_12.json), [May 2025](gbr/LAD_UK_2025_05.json), [Dec 2024](gbr/LAD_UK_2024_12.json), [May 2024](gbr/LAD_UK_2024_05.json), [Dec 2023](gbr/LAD_UK_2023_12.json), [May 2023](gbr/LAD_UK_2023_05.json), [Dec 2022](gbr/LAD_UK_2022_12.json), [May 2022](gbr/LAD_UK_2022_05.json), [Dec 2021](gbr/LAD_UK_2021_12.json)
 - Combined Authorities (England): [Dec 2025](gbr/CAUTH_ENG_2025_12.json)
@@ -32,6 +34,10 @@ Collection of topojson boundaries to be used for building map visualisations
 - Great Britain: [CTRY_GB](gbr/CTRY_GB.json)
 - England & Wales: [CTRY_EW](gbr/CTRY_EW.json)
 - Nations: [England](gbr/CTRY_GB-ENG.json), [Northern Ireland](gbr/CTRY_GB-NIR.json), [Scotland](gbr/CTRY_GB-SCT.json), [Wales](gbr/CTRY_GB-WLS.json),
+
+**Nations (pre-filtered):** `ENG`, `WLS`, `SCT`, `NIR` versions of LAD Dec 2025 and Westminster constituencies Jul 2024, plus `ENG`, `WLS` versions of LSOA and MSOA 2021. See the [filtering guide](gbr/README.md#1-pre-filtered-nation-files).
+
+**Lookups:** [LAD Dec 2025 → country, region, combined authority, ITL](gbr/lookups/LAD_UK_2025_12.csv), [LSOA 2021 → MSOA → LAD](gbr/lookups/LSOA_EW_2021.csv)
 
 **High resolution (`gbr/full/`):**
 Near full-resolution versions, for zooming in on or filtering to small areas. These also include land area (`area`, m²) taken from the ONS full resolution (BFC, clipped to coastline) boundaries, which is useful for density calculations. Files are large (4–82 MB), so use them for subsets and local work, not whole-UK web charts.

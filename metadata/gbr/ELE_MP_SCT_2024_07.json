@@ -1,0 +1,16 @@
+{
+  "source": {
+    "file": "gbr/ELE_MP_UK_2024_07.json"
+  },
+  "processing": {
+    "filter": "id starts with 'S' (SCT)",
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/ELE_MP_SCT_2024_07.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 57,
+    "output_size_mb": 0.18
+  }
+}

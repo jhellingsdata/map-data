@@ -30,6 +30,8 @@ Goals:
 ```
 gbr/                 UK boundaries, standard resolution (charting whole UK / nations)
 gbr/full/            UK boundaries near full resolution, plus `area` (m²), for zooming / subsetting
+gbr/lookups/         CSV lookups (child → parent areas), named after the boundary file they match
+gbr/README.md        User guide to filtering UK files (nations, lookups, Altair/Vega-Lite snippets)
 gbr/cities/london/   London subsets (legacy naming, see Known issues)
 usa/, usa/cities/nyc/  US states, counties, NYC (hand-made, not from pipeline)
 world/               World countries (Natural Earth, hand-made)
@@ -62,6 +64,19 @@ raw/                 Pipeline cache: ONS catalog CSV + raw GeoJSON downloads (gi
 - `_{MM}` is added only for geographies that ONS releases more than once a year (LAD, CAUTH,
   PCON). Use the ONS vintage month (e.g. `_05` May, `_12` December).
 - Same filename in `gbr/` and `gbr/full/` means the same vintage at two resolutions.
+- Nation subsets swap the coverage code (`LAD_UK_2025_12` → `LAD_WLS_2025_12`). Each one is
+  an exact filter of its source file by the first letter of the GSS code (E/W/S/N). They
+  are built by `scripts/subsets.py`, and their metadata records the source file.
+
+### Lookups (`gbr/lookups/*.csv`)
+- Named after the boundary file whose `id`s they match, with one row per child area.
+- Columns are `{level}_id` / `{level}_name` in lowercase (`lad`, `ctry`, `rgn`, `cauth`,
+  `itl1`…, `lsoa`, `msoa`). Leave a value blank where the level doesn't exist (e.g. `rgn`
+  outside England).
+- Sources are ONS lookups with item ids pinned in `scripts/lookups.py`. Every child must
+  map to exactly one parent. Where ONS data doesn't nest, resolve it with an explicit,
+  commented best-fit override (e.g. North Ayrshire → ITL3 TLM93).
+- Builds check the lookup against the boundary file's ids and fail on any mismatch.
 
 ### Resolution & size
 - `gbr/`: built from ONS **BGC** (generalised, clipped to coastline). Target: whole-UK file
@@ -92,6 +107,8 @@ uv run python -m scripts.pipeline process LAD --count 3 # build up to 3 missing 
 uv run python -m scripts.pipeline process LAD --all [--force]
 uv run python -m scripts.pipeline rebuild gbr/LAD_UK_2025_12.json  # re-process a published
                                                     # file from its metadata (current config)
+uv run python -m scripts.subsets                         # nation subsets (SUBSET_SOURCES)
+uv run python -m scripts.lookups                         # lookup CSVs (gbr/lookups/)
 uv run python examples/view_map.py gbr/LAD_UK_2025_12.json   # preview in browser
 ```
 
@@ -123,6 +140,11 @@ builds every historic version ONS lists.
 ## Decision log
 Newest first. Record what was decided and why.
 
+- **2026-10-29** Added a filtering guide (`gbr/README.md`), nation subsets (exact filters of
+  the UK/EW file, not re-simplified, so geometry is identical) and lookup CSVs for LAD Dec
+  2025 and LSOA 2021. This supports teaching on devolved nations and authorities.
+  Lookups are CSV (not merged into the TopoJSON) to keep boundary files minimal and to
+  work with both pandas and the Vega-Lite `lookup` transform.
 - **2026-10-29** `gbr/full/LSOA_EW_2021.json` simplified at 25% instead of 50% (82 MB → 46 MB).
   This keeps it under GitHub's 50 MB warning, with no visible difference at borough zoom.
 - **2026-10-29** BGC LAD simplification lowered from 20% to 8% (0.88 MB → 0.41 MB). The

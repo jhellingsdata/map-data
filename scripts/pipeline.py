@@ -160,6 +160,10 @@ def cmd_rebuild(args):
             print(f"\nNo metadata for {output_path} (not a pipeline file?) — skipping.")
             continue
         meta = json.loads(metadata_path.read_text())
+        if "boundary_type" not in meta["processing"]:
+            print(f"\n{output_path} is derived from {meta['source']['file']} — "
+                  f"rebuild that, then re-run scripts.subsets.")
+            continue
         src, btype = meta["source"], meta["processing"]["boundary_type"]
         print(f"\n{'=' * 60}")
         print(f"[{btype}] {src['title']}  →  {output_path}")

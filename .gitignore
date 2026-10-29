@@ -3,6 +3,7 @@
 # Raw source downloads — large files, not committed
 raw/downloads/
 raw/catalog/
+raw/lookups/
 
 # Python
 .venv/

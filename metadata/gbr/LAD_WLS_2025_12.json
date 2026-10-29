@@ -1,0 +1,16 @@
+{
+  "source": {
+    "file": "gbr/LAD_UK_2025_12.json"
+  },
+  "processing": {
+    "filter": "id starts with 'W' (WLS)",
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/LAD_WLS_2025_12.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 22,
+    "output_size_mb": 0.03
+  }
+}

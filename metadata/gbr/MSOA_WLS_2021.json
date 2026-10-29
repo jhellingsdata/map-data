@@ -1,0 +1,16 @@
+{
+  "source": {
+    "file": "gbr/MSOA_EW_2021.json"
+  },
+  "processing": {
+    "filter": "id starts with 'W' (WLS)",
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/MSOA_WLS_2021.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 408,
+    "output_size_mb": 0.14
+  }
+}
