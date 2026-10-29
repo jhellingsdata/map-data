@@ -38,6 +38,7 @@ from pathlib import Path
 import pandas as pd
 
 from scripts.process import _count_features
+from scripts.validate import repair_file
 
 INPUTS = Path("scripts/inputs")
 AUTHORITIES = INPUTS / "strategic_authorities.csv"
@@ -68,6 +69,13 @@ def _ids(path: Path) -> dict[str, str]:
 def slug(sa_id: str, name: str) -> str:
     """MSA016 + Cumbria → msa016_cumbria"""
     return f"{sa_id.lower()}_{re.sub(r'[^a-z0-9]+', '_', name.lower()).strip('_')}"
+
+
+def _report_repairs(out: Path) -> None:
+    """Dissolving and re-quantising can create invalid polygons; repair any (scripts/validate.py)."""
+    repaired = repair_file(out)
+    if repaired:
+        print(f"    repaired {len(repaired)} invalid in {out}: {[k for k, _ in repaired][:5]}")
 
 
 def _write_metadata(out: Path, sources: list[Path], processing: dict) -> None:
@@ -118,9 +126,10 @@ def build_national(out: Path, source: Path, keep_area: bool) -> Path:
         "-rename-fields", "id=sa_id",
         "-filter-fields", ",".join(fields),
         "-rename-layers", "geog",
-        "-o", str(out), "format=topojson",
+        "-o", str(out), "format=topojson", "fix-geometry",
     ]
     _run(cmd)
+    _report_repairs(out)
     _write_metadata(
         out,
         [source],
@@ -227,8 +236,9 @@ def build_sa_folder(sa: pd.Series, lsoa: pd.DataFrame, tmp: Path) -> list[Path]:
             "mapshaper", str(cut), *steps,
             "-filter-fields", fields[layer],
             "-rename-layers", "geog",
-            "-o", str(out), "format=topojson",
+            "-o", str(out), "format=topojson", "fix-geometry",
         ])
+        _report_repairs(out)
         _write_metadata(
             out,
             [LSOA_SOURCE, LSOA_LOOKUP],

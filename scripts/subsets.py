@@ -17,6 +17,7 @@ from datetime import date
 from pathlib import Path
 
 from scripts.process import _count_features
+from scripts.validate import repair_file
 
 METADATA_DIR = Path("metadata")
 
@@ -62,18 +63,21 @@ def build_subset(source: Path, nation: str) -> Path:
     cmd = [
         "mapshaper", str(source),
         "-filter", f"id.charAt(0) == '{prefix}'",
-        "-o", str(out), "format=topojson",
+        "-o", str(out), "format=topojson", "fix-geometry",
     ]
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
     if result.returncode != 0:
         raise RuntimeError(f"mapshaper failed:\n{result.stderr}")
 
+    # mapshaper re-quantises on output, so re-check validity
+    repaired = repair_file(out)
     feature_count = _count_features(out)
     size_mb = out.stat().st_size / 1e6
     meta = {
         "source": {"file": str(source)},
         "processing": {
             "filter": f"id starts with '{prefix}' ({nation})",
+            "validity_repairs": [k for k, _ in repaired],
             "processed": date.today().isoformat(),
         },
         "output": {

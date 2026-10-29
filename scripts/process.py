@@ -7,6 +7,8 @@ Takes a source shapefile and produces a standardised TopoJSON with:
   - Objects key named 'geog' (consistent across the repo)
   - Projected to WGS84 (ONS shapefiles use British National Grid)
   - Simplification via Visvalingam weighted with keep-shapes (or none for BFC variants)
+  - Valid polygons: written with mapshaper fix-geometry, then checked and any remaining
+    invalid features repaired (see scripts/validate.py)
 """
 
 import json
@@ -17,6 +19,7 @@ from pathlib import Path
 from typing import Optional
 
 from scripts.config import BOUNDARY_CONFIGS
+from scripts.validate import repair_file
 
 # Marker used in extra_fields when 'area' must be computed from geometry rather
 # than passed through. Some ONS services are re-published in WGS84, so their
@@ -103,14 +106,15 @@ def process_boundary(
     output_path: Path,
     simplification_pct: Optional[int] = 50,
     extra_fields: Optional[dict[str, str]] = None,
-) -> tuple[int, float, float]:
+) -> tuple[int, float, float, list[tuple[str, float]]]:
     """
     Run the full MapShaper pipeline and write a TopoJSON to output_path.
 
     simplification_pct=None skips simplification entirely (for full-resolution variants).
     extra_fields maps {target_name: source_field_name} for additional preserved columns.
 
-    Returns (feature_count, source_size_mb, output_size_mb).
+    Returns (feature_count, source_size_mb, output_size_mb, repaired), where repaired
+    lists (id, relative_area_change) for features fixed by the validity repair.
     """
     output_path.parent.mkdir(parents=True, exist_ok=True)
     source_size_mb = shp_path.stat().st_size / 1e6
@@ -139,7 +143,8 @@ def process_boundary(
         "-rename-fields", ",".join(rename_parts),
         "-filter-fields", ",".join(keep_fields),
         "-proj", "wgs84",
-        "-o", str(output_path), "format=topojson",
+        # fix-geometry removes most self-intersections created by quantisation
+        "-o", str(output_path), "format=topojson", "fix-geometry",
     ]
 
     label = f"simplification={simplification_pct}%" if simplification_pct else "no simplification"
@@ -153,13 +158,19 @@ def process_boundary(
     if result.stderr:
         print(result.stderr.strip())
 
+    repaired = repair_file(output_path)
+    if repaired:
+        print(f"Repaired {len(repaired)} invalid features: "
+              + ", ".join(f"{k} ({v * 100:+.3f}% area)" for k, v in repaired[:5])
+              + (" …" if len(repaired) > 5 else ""))
+
     output_size_mb = output_path.stat().st_size / 1e6
     feature_count = _count_features(output_path)
     print(
         f"Written {feature_count} features → {output_path}  "
         f"({source_size_mb:.1f} MB → {output_size_mb:.2f} MB)"
     )
-    return feature_count, source_size_mb, output_size_mb
+    return feature_count, source_size_mb, output_size_mb, repaired
 
 
 def _count_features(topo_path: Path) -> int:
@@ -185,6 +196,7 @@ def build_metadata(
     output_size_mb: float,
     mapshaper_version: str,
     downloaded: Optional[str] = None,
+    repaired: Optional[list[tuple[str, float]]] = None,
 ) -> dict:
     return {
         "source": {
@@ -203,6 +215,10 @@ def build_metadata(
             "projection": "wgs84",
             "processed": date.today().isoformat(),
             "mapshaper_version": mapshaper_version,
+            # Features made valid after quantisation (scripts/validate.py)
+            "validity_repairs": [
+                {"id": k, "area_change_pct": round(v * 100, 4)} for k, v in (repaired or [])
+            ],
         },
         "output": {
             "file": output_file,

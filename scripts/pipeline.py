@@ -115,7 +115,7 @@ def build_one(
 
     # Process
     try:
-        feature_count, source_mb, output_mb = process_boundary(
+        feature_count, source_mb, output_mb, repaired = process_boundary(
             shp_path,
             id_field,
             name_field,
@@ -144,6 +144,7 @@ def build_one(
         output_size_mb=output_mb,
         mapshaper_version=mapshaper_ver,
         downloaded=date.fromtimestamp(shp_path.stat().st_mtime).isoformat(),
+        repaired=repaired,
     )
     with open(metadata_path, "w") as f:
         json.dump(meta, f, indent=2)

@@ -50,6 +50,14 @@ raw/                 Pipeline cache: ONS catalog CSV + raw GeoJSON downloads (gi
 - Coordinates in **WGS84** (lon/lat), quantised TopoJSON. Users set the projection in the chart.
 - Properties: **`id`** (official code, e.g. GSS `E06000001`, ITL `TLC`) and **`name`**.
   Add other properties only when they serve a purpose, with short lowercase names.
+- **Valid polygons (OGC/GEOS rules)**, so GIS operations (union, dissolve, overlay) work
+  without `make_valid`. Every script that writes TopoJSON uses mapshaper `-o ... fix-geometry`
+  and then `scripts.validate.repair_file()`. `uv run python -m scripts.validate` must
+  report no invalid features before committing data.
+  - Repair rewrites only the invalid features with shapely `make_valid(method="linework")`,
+    snap-rounded onto the file's existing grid. All other features keep their arcs.
+  - Never use mapshaper `-clean` on published files. It dropped and emptied features and
+    crashed on full LSOA.
 - `gbr/full/` files also carry **`area`** in m². **Always take area from the
   full-resolution (BFC) source**, never from simplified geometry, so it is the most
   correct value available. Normally this is ONS `Shape__Area` (calculated on the BFC in
@@ -111,6 +119,7 @@ uv run python -m scripts.pipeline rebuild gbr/LAD_UK_2025_12.json  # re-process 
                                                     # file from its metadata (current config)
 uv run python -m scripts.subsets                         # nation subsets (SUBSET_SOURCES)
 uv run python -m scripts.lookups                         # lookup CSVs (gbr/lookups/)
+uv run python -m scripts.validate [--repair] [files]    # polygon validity (default: all files)
 uv run python examples/view_map.py gbr/LAD_UK_2025_12.json   # preview in browser
 ```
 
@@ -131,12 +140,8 @@ Use a `_BFC` suffix with `output_dir: "gbr/full"` for the high-resolution varian
 builds every historic version ONS lists.
 
 ## Known issues / legacy
-- Some simplified polygons are invalid (self-intersections at coasts and narrow necks):
-  69 of 35,672 in `gbr/full/LSOA_EW_2021`, 45 in `gbr/LSOA_EW_2021`, 11 of 361 in
-  `gbr/full/LAD_UK_2025_12`. Charts render fine; GIS operations such as unions need
-  `make_valid` first. Files dissolved from them (SA, the `gbr/sa/` folders) inherit them.
-  mapshaper `-clean` repairs them but can drop a small feature (it removed 1 of Cumbria's
-  319 LSOAs), so a fix belongs in the source pipeline with a feature-count check.
+- Falls Church in `usa/counties_2017.json` has no geometry. Its shape collapsed in the
+  hand-made file, and the repair can't recreate it. `scripts.validate` reports it.
 - Files made before the current pipeline (no `metadata/` entry) were made with a lost
   pipeline, partly by hand. Examples are older `LAD_UK_2021_12`…`2024_05`, ITL, NUTS, LSOA,
   MSOA, CTRY and ELE_MP. Some ITL files came from BUC (ultra-generalised) sources.
@@ -148,6 +153,21 @@ builds every historic version ONS lists.
 ## Decision log
 Newest first. Record what was decided and why.
 
+- **2026-10-29** All published polygons must be valid, and are now: 0 invalid features
+  across every file. There were two causes:
+  1. **Quantisation.** Rounding to the TopoJSON grid pinches narrow necks and coastlines.
+     The raw ONS sources are valid, and so is unquantised output.
+  2. **Holes written as outer parts.** ArcGIS's GeoJSON export, and some older files,
+     write holes as extra outer parts ("nested shells"). Charts drew those holes filled,
+     e.g. South Cambridgeshire over Cambridge in LAD Dec 2018, and Gateshead 005 over its
+     neighbour. ONS `Shape__Area` always matches the hole reading.
+
+  The fix is `fix-geometry` on output, then a targeted, grid-preserving repair
+  (`scripts/validate.py`). mapshaper `-clean` was rejected: it dropped 2 MSOAs and emptied
+  another. All pipeline files were rebuilt, and all legacy files repaired in place.
+  `gbr/LSOA_EW_2021.json` and `LSOA_EW_2011.json` were rebuilt through the pipeline (BGC
+  20%), because Bolton 018A had collapsed to nothing in both legacy files. Snap on import adds a few pinches, but the
+  repair handles them, so it stays for the arc-sharing benefit.
 - **2026-10-29** Older LAD nation subsets are published only at **code-change points**, one
   per distinct set of codes for each nation (see the `SUBSET_SOURCES` comment). These were
   found by comparing the codes in every ONS LAD release. Wales and NI have had no code
