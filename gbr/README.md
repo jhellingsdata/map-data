@@ -19,7 +19,7 @@ file:
 
 | Part | Values |
 |---|---|
-| GEOGRAPHY | `LAD` local authorities, `CAUTH` combined authorities, `ELE_MP` Westminster constituencies, `LSOA`, `MSOA`, `ITL1`–`ITL3`, `NUTS1`–`NUTS3` |
+| GEOGRAPHY | `LAD` local authorities, `CAUTH` combined authorities, `SA` Strategic Authorities, `ELE_MP` Westminster constituencies, `LSOA`, `MSOA`, `ITL1`–`ITL3`, `NUTS1`–`NUTS3` |
 | COVERAGE | `UK`, `GB`, `EW` (England & Wales), `ENG`, `WLS`, `SCT`, `NIR` |
 | YEAR, MONTH | The ONS boundary version, e.g. `2025_12` = December 2025 |
 
@@ -125,6 +125,43 @@ Vega-Lite equivalent:
 }
 ```
 
+## 4. Strategic Authorities, and drilling into one
+
+England's 21 Strategic Authorities (SAs: mayoral and non-mayoral combined authorities,
+plus the newer Devolution Priority Programme areas) are not an ONS geography yet, and
+ONS's `CAUTH` file leaves out the areas that have no combined authority code. They are
+built here by merging the published LAD boundaries, so their borders match
+`LAD_UK_2025_12` exactly.
+
+| File | What it is |
+|---|---|
+| [SA_ENG_2025_12](SA_ENG_2025_12.json) / [full](full/SA_ENG_2025_12.json) | The 21 SAs (full adds `area`, m²) |
+| [lookups/SA_ENG_2025_12.csv](lookups/SA_ENG_2025_12.csv) | One row per SA, with parent and matching area names |
+| `lookups/LAD_UK_2025_12.csv` | Now also has `sa_id` / `sa_name` for each member LAD |
+| `sa/<slug>/SA.json`, `LAD.json`, `MSOA.json`, `LSOA.json` | One SA, its LADs, MSOAs and LSOAs (2021), e.g. `sa/msa016_cumbria/` |
+
+SA properties: `id` (an `MSA001`–`MSA021` code, as SAs have no ONS code yet), `name`,
+`short` (acronym), `cauth_id` (the ONS combined authority code, where the SA is one),
+`rgn_id` / `itl1_id` (parent region; Greater Lincolnshire spans two, written
+`E12000003;E12000004`), and `itl2_id` / `itl2_2021_id` (the ITL2 that is exactly the SA,
+where one is). A blank means there is no such area.
+
+The four files in an SA folder are all built from the same LSOAs, so their borders
+overlay exactly. LSOAs carry `msoa_id` and `lad_id`, and MSOAs `lad_id`, for colouring
+or highlighting by parent. Layer them to show small areas under their district and SA
+borders:
+
+```python
+sa = base + "sa/msa016_cumbria/"
+def layer(f): return alt.Data(url=sa + f, format=alt.DataFormat(feature="geog", type="topojson"))
+
+alt.layer(
+    alt.Chart(layer("LSOA.json")).mark_geoshape(fill="#e8eef5", stroke="#9fb3c8", strokeWidth=0.2),
+    alt.Chart(layer("LAD.json")).mark_geoshape(filled=False, stroke="#c0392b", strokeWidth=1.4),
+    alt.Chart(layer("SA.json")).mark_geoshape(filled=False, stroke="black", strokeWidth=1.8),
+).project("mercator")
+```
+
 ## Things to watch
 
 - **Match versions.** Join data and lookups to the boundary version they were published
@@ -132,9 +169,10 @@ Vega-Lite equivalent:
   Somerset in April 2023.
 - **Regions (`rgn`) cover England only.** For a UK-wide set of regions that includes Wales,
   Scotland and Northern Ireland, use ITL1.
-- **Combined Authorities are not the same as Mayoral Strategic Authorities.** The ONS
-  Combined Authority list (`cauth`) includes some authorities without a mayor (e.g. Devon and
-  Torbay, Lancashire) and leaves out the Greater London Authority.
+- **Combined Authorities are not the same as Strategic Authorities.** The ONS Combined
+  Authority list (`cauth`) covers 15 of the 21 SAs (the six Devolution Priority Programme
+  areas have no code yet), includes some without a mayor (Devon and Torbay, Lancashire) and
+  leaves out the Greater London Authority. The `sa` files cover all 21.
 - **North Ayrshire** is split between two ITL areas, because Arran and Cumbrae are in
   Highlands and Islands. The lookup assigns it to its mainland area, TLM93.
 - **Side-by-side maps.** In `alt.hconcat` / `vconcat`, Vega-Lite shares one projection

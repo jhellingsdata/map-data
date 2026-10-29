@@ -1,0 +1,22 @@
+sa_id,sa_name,sa_short,ctry_id,ctry_name,rgn_id,rgn_name,itl1_id,itl1_name,cauth_id,cauth_name,itl2_id,itl2_name,itl2_2021_id,itl2_2021_name,n_lads
+MSA001,Greater Manchester,,E92000001,England,E12000002,North West,TLD,North West (England),E47000001,Greater Manchester,TLD3,Greater Manchester,TLD3,Greater Manchester,10
+MSA002,West Midlands,,E92000001,England,E12000005,West Midlands,TLG,West Midlands (England),E47000007,West Midlands,TLG3,West Midlands,TLG3,West Midlands,7
+MSA003,Liverpool City Region,,E92000001,England,E12000002,North West,TLD,North West (England),E47000004,Liverpool City Region,TLD7,Merseyside,TLD7,Merseyside,6
+MSA004,South Yorkshire,,E92000001,England,E12000003,Yorkshire and The Humber,TLE,Yorkshire and The Humber,E47000002,South Yorkshire,TLE3,South Yorkshire,TLE3,South Yorkshire,4
+MSA005,West Yorkshire,,E92000001,England,E12000003,Yorkshire and The Humber,TLE,Yorkshire and The Humber,E47000003,West Yorkshire,TLE4,West Yorkshire,TLE4,West Yorkshire,5
+MSA006,Tees Valley,,E92000001,England,E12000001,North East,TLC,North East (England),E47000006,Tees Valley,TLC3,Tees Valley,,,5
+MSA007,North East,,E92000001,England,E12000001,North East,TLC,North East (England),E47000014,North East,TLC4,"Northumberland, Durham and Tyne & Wear",,,7
+MSA008,Cambridgeshire and Peterborough,,E92000001,England,E12000006,East of England,TLH,East (England),E47000008,Cambridgeshire and Peterborough,TLH4,Cambridgeshire and Peterborough,,,6
+MSA009,West of England,,E92000001,England,E12000009,South West,TLK,South West (England),E47000009,West of England,TLK5,West of England,,,3
+MSA010,York and North Yorkshire,,E92000001,England,E12000003,Yorkshire and The Humber,TLE,Yorkshire and The Humber,E47000012,York and North Yorkshire,TLE2,North Yorkshire,TLE2,North Yorkshire,2
+MSA011,East Midlands,,E92000001,England,E12000004,East Midlands,TLF,East Midlands (England),E47000013,East Midlands,TLF1,Derbyshire and Nottinghamshire,TLF1,Derbyshire and Nottinghamshire,17
+MSA012,Hull and East Yorkshire,,E92000001,England,E12000003,Yorkshire and The Humber,TLE,Yorkshire and The Humber,E47000016,Hull and East Yorkshire,,,,,2
+MSA013,Greater Essex,,E92000001,England,E12000006,East of England,TLH,East (England),,,TLH3,Essex,TLH3,Essex,14
+MSA014,Sussex and Brighton,,E92000001,England,E12000008,South East,TLJ,South East (England),,,,,,,13
+MSA015,Hampshire and the Solent,,E92000001,England,E12000008,South East,TLJ,South East (England),,,TLJ3,Hampshire and Isle of Wight,TLJ3,Hampshire and Isle of Wight,14
+MSA016,Cumbria,,E92000001,England,E12000002,North West,TLD,North West (England),,,TLD1,Cumbria,TLD1,Cumbria,2
+MSA017,Cheshire and Warrington,,E92000001,England,E12000002,North West,TLD,North West (England),,,TLD6,Cheshire,TLD6,Cheshire,3
+MSA018,Devon and Torbay,,E92000001,England,E12000009,South West,TLK,South West (England),E47000015,Devon and Torbay,,,,,9
+MSA019,Greater Lincolnshire,,E92000001,England,E12000003;E12000004,Yorkshire and The Humber;East Midlands,TLE;TLF,Yorkshire and The Humber;East Midlands (England),E47000017,Greater Lincolnshire,,,,,9
+MSA020,Lancashire,,E92000001,England,E12000002,North West,TLD,North West (England),E47000018,Lancashire,TLD4,Lancashire,TLD4,Lancashire,14
+MSA021,Norfolk and Suffolk,,E92000001,England,E12000006,East of England,TLH,East (England),,,,,,,12

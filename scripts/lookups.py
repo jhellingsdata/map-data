@@ -24,6 +24,7 @@ import requests
 from scripts.fetch import HEADERS, get_item_service_url, get_layer_id
 
 LOOKUP_CACHE = Path("raw/lookups")
+SA_LADS = Path("scripts/inputs/strategic_authorities_lads.csv")
 OUTPUT_DIR = Path("gbr/lookups")
 
 # ONS lookup items used as sources
@@ -127,7 +128,7 @@ def _check_matches_boundary(df: pd.DataFrame, key: str, boundary_path: str) -> N
 # ---------------------------------------------------------------------------
 
 def build_lad_2025() -> Path:
-    """LAD (Dec 2025) → country, region, combined authority, ITL1-3."""
+    """LAD (Dec 2025) → country, region, combined authority, Strategic Authority, ITL1-3."""
     # ONS lookups for LAD25 are dated April/May 2025; LAD codes and names are
     # identical in the May and December 2025 boundaries, so they apply to both.
     ctry = _levels(fetch_lookup("ward_ctry_2025_05"),
@@ -143,10 +144,14 @@ def build_lad_2025() -> Path:
         .merge(_one_per(itl.drop(columns="lad_name"), "lad_id"), on="lad_id", how="left")
         .merge(_one_per(cauth.drop(columns="lad_name"), "lad_id"), on="lad_id", how="left")
     )
+    # Strategic Authorities are not an ONS geography: membership comes from the
+    # inputs that also build gbr/SA_ENG_2025_12.json (scripts/strategic_authorities.py).
+    sa = pd.read_csv(SA_LADS, dtype=str)[["lad_id", "sa_id", "sa_name"]]
+    df = df.merge(_one_per(sa, "lad_id"), on="lad_id", how="left")
     df = df[[
         "lad_id", "lad_name", "ctry_id", "ctry_name", "rgn_id", "rgn_name",
-        "cauth_id", "cauth_name", "itl1_id", "itl1_name", "itl2_id", "itl2_name",
-        "itl3_id", "itl3_name",
+        "cauth_id", "cauth_name", "sa_id", "sa_name", "itl1_id", "itl1_name",
+        "itl2_id", "itl2_name", "itl3_id", "itl3_name",
     ]].sort_values("lad_id")
 
     _check_matches_boundary(df, "lad_id", "gbr/LAD_UK_2025_12.json")

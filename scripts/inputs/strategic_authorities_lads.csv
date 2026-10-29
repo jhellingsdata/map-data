@@ -1,0 +1,165 @@
+lad_id,lad_name,sa_id,sa_name
+E08000001,Bolton,MSA001,Greater Manchester
+E08000002,Bury,MSA001,Greater Manchester
+E08000003,Manchester,MSA001,Greater Manchester
+E08000004,Oldham,MSA001,Greater Manchester
+E08000005,Rochdale,MSA001,Greater Manchester
+E08000006,Salford,MSA001,Greater Manchester
+E08000007,Stockport,MSA001,Greater Manchester
+E08000008,Tameside,MSA001,Greater Manchester
+E08000009,Trafford,MSA001,Greater Manchester
+E08000010,Wigan,MSA001,Greater Manchester
+E08000025,Birmingham,MSA002,West Midlands
+E08000026,Coventry,MSA002,West Midlands
+E08000027,Dudley,MSA002,West Midlands
+E08000028,Sandwell,MSA002,West Midlands
+E08000029,Solihull,MSA002,West Midlands
+E08000030,Walsall,MSA002,West Midlands
+E08000031,Wolverhampton,MSA002,West Midlands
+E06000006,Halton,MSA003,Liverpool City Region
+E08000011,Knowsley,MSA003,Liverpool City Region
+E08000012,Liverpool,MSA003,Liverpool City Region
+E08000013,St. Helens,MSA003,Liverpool City Region
+E08000014,Sefton,MSA003,Liverpool City Region
+E08000015,Wirral,MSA003,Liverpool City Region
+E08000017,Doncaster,MSA004,South Yorkshire
+E08000018,Rotherham,MSA004,South Yorkshire
+E08000038,Barnsley,MSA004,South Yorkshire
+E08000039,Sheffield,MSA004,South Yorkshire
+E08000032,Bradford,MSA005,West Yorkshire
+E08000033,Calderdale,MSA005,West Yorkshire
+E08000034,Kirklees,MSA005,West Yorkshire
+E08000035,Leeds,MSA005,West Yorkshire
+E08000036,Wakefield,MSA005,West Yorkshire
+E06000001,Hartlepool,MSA006,Tees Valley
+E06000002,Middlesbrough,MSA006,Tees Valley
+E06000003,Redcar and Cleveland,MSA006,Tees Valley
+E06000004,Stockton-on-Tees,MSA006,Tees Valley
+E06000005,Darlington,MSA006,Tees Valley
+E06000047,County Durham,MSA007,North East
+E06000057,Northumberland,MSA007,North East
+E08000021,Newcastle upon Tyne,MSA007,North East
+E08000022,North Tyneside,MSA007,North East
+E08000023,South Tyneside,MSA007,North East
+E08000024,Sunderland,MSA007,North East
+E08000037,Gateshead,MSA007,North East
+E06000031,Peterborough,MSA008,Cambridgeshire and Peterborough
+E07000008,Cambridge,MSA008,Cambridgeshire and Peterborough
+E07000009,East Cambridgeshire,MSA008,Cambridgeshire and Peterborough
+E07000010,Fenland,MSA008,Cambridgeshire and Peterborough
+E07000011,Huntingdonshire,MSA008,Cambridgeshire and Peterborough
+E07000012,South Cambridgeshire,MSA008,Cambridgeshire and Peterborough
+E06000022,Bath and North East Somerset,MSA009,West of England
+E06000023,"Bristol, City of",MSA009,West of England
+E06000025,South Gloucestershire,MSA009,West of England
+E06000014,York,MSA010,York and North Yorkshire
+E06000065,North Yorkshire,MSA010,York and North Yorkshire
+E06000015,Derby,MSA011,East Midlands
+E06000018,Nottingham,MSA011,East Midlands
+E07000032,Amber Valley,MSA011,East Midlands
+E07000033,Bolsover,MSA011,East Midlands
+E07000034,Chesterfield,MSA011,East Midlands
+E07000035,Derbyshire Dales,MSA011,East Midlands
+E07000036,Erewash,MSA011,East Midlands
+E07000037,High Peak,MSA011,East Midlands
+E07000038,North East Derbyshire,MSA011,East Midlands
+E07000039,South Derbyshire,MSA011,East Midlands
+E07000170,Ashfield,MSA011,East Midlands
+E07000171,Bassetlaw,MSA011,East Midlands
+E07000172,Broxtowe,MSA011,East Midlands
+E07000173,Gedling,MSA011,East Midlands
+E07000174,Mansfield,MSA011,East Midlands
+E07000175,Newark and Sherwood,MSA011,East Midlands
+E07000176,Rushcliffe,MSA011,East Midlands
+E06000010,"Kingston upon Hull, City of",MSA012,Hull and East Yorkshire
+E06000011,East Riding of Yorkshire,MSA012,Hull and East Yorkshire
+E06000033,Southend-on-Sea,MSA013,Greater Essex
+E06000034,Thurrock,MSA013,Greater Essex
+E07000066,Basildon,MSA013,Greater Essex
+E07000067,Braintree,MSA013,Greater Essex
+E07000068,Brentwood,MSA013,Greater Essex
+E07000069,Castle Point,MSA013,Greater Essex
+E07000070,Chelmsford,MSA013,Greater Essex
+E07000071,Colchester,MSA013,Greater Essex
+E07000072,Epping Forest,MSA013,Greater Essex
+E07000073,Harlow,MSA013,Greater Essex
+E07000074,Maldon,MSA013,Greater Essex
+E07000075,Rochford,MSA013,Greater Essex
+E07000076,Tendring,MSA013,Greater Essex
+E07000077,Uttlesford,MSA013,Greater Essex
+E06000043,Brighton and Hove,MSA014,Sussex and Brighton
+E07000061,Eastbourne,MSA014,Sussex and Brighton
+E07000062,Hastings,MSA014,Sussex and Brighton
+E07000063,Lewes,MSA014,Sussex and Brighton
+E07000064,Rother,MSA014,Sussex and Brighton
+E07000065,Wealden,MSA014,Sussex and Brighton
+E07000223,Adur,MSA014,Sussex and Brighton
+E07000224,Arun,MSA014,Sussex and Brighton
+E07000225,Chichester,MSA014,Sussex and Brighton
+E07000226,Crawley,MSA014,Sussex and Brighton
+E07000227,Horsham,MSA014,Sussex and Brighton
+E07000228,Mid Sussex,MSA014,Sussex and Brighton
+E07000229,Worthing,MSA014,Sussex and Brighton
+E06000044,Portsmouth,MSA015,Hampshire and the Solent
+E06000045,Southampton,MSA015,Hampshire and the Solent
+E06000046,Isle of Wight,MSA015,Hampshire and the Solent
+E07000084,Basingstoke and Deane,MSA015,Hampshire and the Solent
+E07000085,East Hampshire,MSA015,Hampshire and the Solent
+E07000086,Eastleigh,MSA015,Hampshire and the Solent
+E07000087,Fareham,MSA015,Hampshire and the Solent
+E07000088,Gosport,MSA015,Hampshire and the Solent
+E07000089,Hart,MSA015,Hampshire and the Solent
+E07000090,Havant,MSA015,Hampshire and the Solent
+E07000091,New Forest,MSA015,Hampshire and the Solent
+E07000092,Rushmoor,MSA015,Hampshire and the Solent
+E07000093,Test Valley,MSA015,Hampshire and the Solent
+E07000094,Winchester,MSA015,Hampshire and the Solent
+E06000063,Cumberland,MSA016,Cumbria
+E06000064,Westmorland and Furness,MSA016,Cumbria
+E06000007,Warrington,MSA017,Cheshire and Warrington
+E06000049,Cheshire East,MSA017,Cheshire and Warrington
+E06000050,Cheshire West and Chester,MSA017,Cheshire and Warrington
+E06000027,Torbay,MSA018,Devon and Torbay
+E07000040,East Devon,MSA018,Devon and Torbay
+E07000041,Exeter,MSA018,Devon and Torbay
+E07000042,Mid Devon,MSA018,Devon and Torbay
+E07000043,North Devon,MSA018,Devon and Torbay
+E07000044,South Hams,MSA018,Devon and Torbay
+E07000045,Teignbridge,MSA018,Devon and Torbay
+E07000046,Torridge,MSA018,Devon and Torbay
+E07000047,West Devon,MSA018,Devon and Torbay
+E06000012,North East Lincolnshire,MSA019,Greater Lincolnshire
+E06000013,North Lincolnshire,MSA019,Greater Lincolnshire
+E07000136,Boston,MSA019,Greater Lincolnshire
+E07000137,East Lindsey,MSA019,Greater Lincolnshire
+E07000138,Lincoln,MSA019,Greater Lincolnshire
+E07000139,North Kesteven,MSA019,Greater Lincolnshire
+E07000140,South Holland,MSA019,Greater Lincolnshire
+E07000141,South Kesteven,MSA019,Greater Lincolnshire
+E07000142,West Lindsey,MSA019,Greater Lincolnshire
+E06000008,Blackburn with Darwen,MSA020,Lancashire
+E06000009,Blackpool,MSA020,Lancashire
+E07000117,Burnley,MSA020,Lancashire
+E07000118,Chorley,MSA020,Lancashire
+E07000119,Fylde,MSA020,Lancashire
+E07000120,Hyndburn,MSA020,Lancashire
+E07000121,Lancaster,MSA020,Lancashire
+E07000122,Pendle,MSA020,Lancashire
+E07000123,Preston,MSA020,Lancashire
+E07000124,Ribble Valley,MSA020,Lancashire
+E07000125,Rossendale,MSA020,Lancashire
+E07000126,South Ribble,MSA020,Lancashire
+E07000127,West Lancashire,MSA020,Lancashire
+E07000128,Wyre,MSA020,Lancashire
+E07000143,Breckland,MSA021,Norfolk and Suffolk
+E07000144,Broadland,MSA021,Norfolk and Suffolk
+E07000145,Great Yarmouth,MSA021,Norfolk and Suffolk
+E07000146,King's Lynn and West Norfolk,MSA021,Norfolk and Suffolk
+E07000147,North Norfolk,MSA021,Norfolk and Suffolk
+E07000148,Norwich,MSA021,Norfolk and Suffolk
+E07000149,South Norfolk,MSA021,Norfolk and Suffolk
+E07000200,Babergh,MSA021,Norfolk and Suffolk
+E07000202,Ipswich,MSA021,Norfolk and Suffolk
+E07000203,Mid Suffolk,MSA021,Norfolk and Suffolk
+E07000244,East Suffolk,MSA021,Norfolk and Suffolk
+E07000245,West Suffolk,MSA021,Norfolk and Suffolk

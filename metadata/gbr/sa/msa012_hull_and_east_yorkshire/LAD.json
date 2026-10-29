@@ -1,0 +1,29 @@
+{
+  "source": {
+    "files": [
+      "gbr/full/LSOA_EW_2021.json",
+      "gbr/lookups/LSOA_EW_2021.csv"
+    ],
+    "inputs": [
+      "scripts/inputs/strategic_authorities.csv",
+      "scripts/inputs/strategic_authorities_lads.csv"
+    ]
+  },
+  "processing": {
+    "subset": "LSOAs (2021) in MSA012 Hull and East Yorkshire",
+    "method": "dissolve the LSOA cut by lad_id",
+    "fields": [
+      "id",
+      "name",
+      "area"
+    ],
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/sa/msa012_hull_and_east_yorkshire/LAD.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 2,
+    "output_size_mb": 0.112
+  }
+}

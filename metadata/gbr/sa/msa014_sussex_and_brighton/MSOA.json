@@ -1,0 +1,30 @@
+{
+  "source": {
+    "files": [
+      "gbr/full/LSOA_EW_2021.json",
+      "gbr/lookups/LSOA_EW_2021.csv"
+    ],
+    "inputs": [
+      "scripts/inputs/strategic_authorities.csv",
+      "scripts/inputs/strategic_authorities_lads.csv"
+    ]
+  },
+  "processing": {
+    "subset": "LSOAs (2021) in MSA014 Sussex and Brighton",
+    "method": "dissolve the LSOA cut by msoa_id",
+    "fields": [
+      "id",
+      "name",
+      "area",
+      "lad_id"
+    ],
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/sa/msa014_sussex_and_brighton/MSOA.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 202,
+    "output_size_mb": 0.733
+  }
+}

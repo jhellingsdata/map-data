@@ -32,6 +32,7 @@ gbr/                 UK boundaries, standard resolution (charting whole UK / nat
 gbr/full/            UK boundaries near full resolution, plus `area` (m²), for zooming / subsetting
 gbr/lookups/         CSV lookups (child → parent areas), named after the boundary file they match
 gbr/README.md        User guide to filtering UK files (nations, lookups, Altair/Vega-Lite snippets)
+gbr/sa/<slug>/       One folder per English Strategic Authority: SA, LAD, MSOA, LSOA files
 gbr/cities/london/   London subsets (legacy naming, see Known issues)
 usa/, usa/cities/nyc/  US states, counties, NYC (hand-made, not from pipeline)
 world/               World countries (Natural Earth, hand-made)
@@ -58,7 +59,7 @@ raw/                 Pipeline cache: ONS catalog CSV + raw GeoJSON downloads (gi
 
 ### File naming (UK)
 `{PREFIX}_{COVERAGE}_{YEAR}[_{MM}].json`
-- `PREFIX`: geography code. `LAD`, `CAUTH`, `LSOA`, `MSOA`, `ITL1-3`, `NUTS1-3`, `CTRY`,
+- `PREFIX`: geography code. `LAD`, `CAUTH`, `SA`, `LSOA`, `MSOA`, `ITL1-3`, `NUTS1-3`, `CTRY`,
   `ELE_MP` (Westminster constituencies; ONS calls these PCON).
 - `COVERAGE`: `UK`, `GB`, `EW`, `ENG`, `WLS`, `SCT`, `NIR`.
 - `_{MM}` is added only for geographies that ONS releases more than once a year (LAD, CAUTH,
@@ -129,6 +130,12 @@ Use a `_BFC` suffix with `output_dir: "gbr/full"` for the high-resolution varian
 builds every historic version ONS lists.
 
 ## Known issues / legacy
+- Some simplified polygons are invalid (self-intersections at coasts and narrow necks):
+  69 of 35,672 in `gbr/full/LSOA_EW_2021`, 45 in `gbr/LSOA_EW_2021`, 11 of 361 in
+  `gbr/full/LAD_UK_2025_12`. Charts render fine; GIS operations such as unions need
+  `make_valid` first. Files dissolved from them (SA, the `gbr/sa/` folders) inherit them.
+  mapshaper `-clean` repairs them but can drop a small feature (it removed 1 of Cumbria's
+  319 LSOAs), so a fix belongs in the source pipeline with a feature-count check.
 - Files made before the current pipeline (no `metadata/` entry) were made with a lost
   pipeline, partly by hand. Examples are older `LAD_UK_2021_12`…`2024_05`, ITL, NUTS, LSOA,
   MSOA, CTRY and ELE_MP. Some ITL files came from BUC (ultra-generalised) sources.
@@ -140,6 +147,16 @@ builds every historic version ONS lists.
 ## Decision log
 Newest first. Record what was decided and why.
 
+- **2026-10-29** Added English Strategic Authorities (`SA_ENG_2025_12`, standard and full,
+  `gbr/sa/<slug>/` drill-down folders, `lookups/SA_ENG_2025_12.csv`, and `sa_id`/`sa_name`
+  in the LAD lookup). SAs are not an ONS geography and ONS `CAUTH` omits six of them, so
+  they are dissolved from published files (`scripts/strategic_authorities.py`): national
+  files from the LAD files, so borders match them exactly; each folder from the full LSOAs,
+  dissolved to MSOA, LAD and SA, so its four files overlay exactly (checked: 0 m of border
+  off the LSOA borders). Membership and attributes come from the msa-data repo
+  (`scripts/inputs/`). `id` is our `MSA0xx` code (no ONS code exists); the prefix is `SA`,
+  not `MSA`, because two of the 21 have no mayor. Folders are one file per layer, not a
+  multi-object file, to keep the single-`geog` rule.
 - **2026-10-29** Added a filtering guide (`gbr/README.md`), nation subsets (exact filters of
   the UK/EW file, not re-simplified, so geometry is identical) and lookup CSVs for LAD Dec
   2025 and LSOA 2021. This supports teaching on devolved nations and authorities.

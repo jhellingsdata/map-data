@@ -1,0 +1,33 @@
+{
+  "source": {
+    "files": [
+      "gbr/full/LAD_UK_2025_12.json"
+    ],
+    "inputs": [
+      "scripts/inputs/strategic_authorities.csv",
+      "scripts/inputs/strategic_authorities_lads.csv"
+    ]
+  },
+  "processing": {
+    "method": "dissolve member LADs by sa_id (no further simplification)",
+    "fields": [
+      "id",
+      "name",
+      "short",
+      "cauth_id",
+      "rgn_id",
+      "itl1_id",
+      "itl2_id",
+      "itl2_2021_id",
+      "area"
+    ],
+    "processed": "2026-10-29"
+  },
+  "output": {
+    "file": "gbr/full/SA_ENG_2025_12.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 21,
+    "output_size_mb": 6.401
+  }
+}
