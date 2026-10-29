@@ -12,6 +12,7 @@ Key fields:
   extra_fields      - Additional columns to keep: {target_name: source_field_regex}
   simplification_pct- % of vertices to keep (None = no simplification)
   output_dir        - Relative output directory (default 'gbr', full-res use 'gbr/full')
+  title_exclude     - Optional extra title substrings to skip (on top of TITLE_EXCLUDE)
 """
 
 MONTH_MAP = {
@@ -272,6 +273,13 @@ BOUNDARY_CONFIGS = {
 
 # Columns to retain from the ONS Hub catalog CSV
 CATALOG_COLUMNS = ["id", "created", "modified", "title", "type", "description", "tags", "snippet", "categories", "url"]
+
+# Catalog titles containing these are never processed:
+#   (WGS84)       - re-publishes of BNG datasets; Shape__Area is in square degrees,
+#                   and the BNG original is always listed alongside
+#   (Parts)       - historic part-districts, would collide with the main file name
+#   Census Merged - 2011 merged districts, would collide with LAD_EW_2011_12
+TITLE_EXCLUDE = ["(WGS84)", "(Parts)", "Census Merged"]
 
 # Only these ArcGIS item types contain downloadable vector boundaries
 VALID_ITEM_TYPES = {"Feature Service", "Feature Layer", "Map Service"}

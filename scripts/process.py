@@ -126,7 +126,10 @@ def process_boundary(
             rename_parts.append(f"{target}={source}")
         keep_fields.append(target)
 
-    cmd = ["mapshaper", str(shp_path), "-rename-layers", "geog"]
+    # snap: merge near-coincident vertices so neighbouring areas share arcs. Some ONS
+    # sources (e.g. LAD May 2021) have borders that don't quite match, which
+    # otherwise bloats the TopoJSON ~2.5x and leaves slivers after simplification.
+    cmd = ["mapshaper", "-i", str(shp_path), "snap", "-rename-layers", "geog"]
     if computed_parts:
         # Compute before simplifying, in a metric projection
         cmd += ["-proj", "EPSG:27700", "-each", ";".join(computed_parts), "-proj", "wgs84"]

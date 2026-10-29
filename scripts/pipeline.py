@@ -7,6 +7,7 @@ Usage:
     uv run python -m scripts.pipeline search all           # list all supported types
     uv run python -m scripts.pipeline process LAD          # process latest LAD
     uv run python -m scripts.pipeline process LAD --all    # process all available LAD versions
+    uv run python -m scripts.pipeline process LAD --version UK_2021_05  # one specific version
     uv run python -m scripts.pipeline process all          # process latest of every type
     uv run python -m scripts.pipeline rebuild gbr/LAD_UK_2025_12.json  # re-process from metadata
 """
@@ -170,6 +171,13 @@ def cmd_rebuild(args):
         build_one(btype, src["id"], src["title"], src["url"], output_path, mapshaper_ver)
 
 
+def _safe_filename(btype: str, title: str):
+    try:
+        return build_output_filename(btype, title)
+    except ValueError:
+        return None
+
+
 def cmd_process(args):
     df = fetch_catalog()
     mapshaper_ver = get_mapshaper_version()
@@ -188,7 +196,14 @@ def cmd_process(args):
             print(f"\n[{btype}] No catalog matches — skipping.")
             continue
 
-        iterate_all = args.all or (args.count is not None)
+        if args.version:
+            names = results["title"].apply(lambda t: _safe_filename(btype, t))
+            results = results[names.str.contains(f"{args.version}.json", regex=False, na=False)]
+            if results.empty:
+                print(f"\n[{btype}] No catalog match for version '{args.version}' — skipping.")
+                continue
+
+        iterate_all = args.all or args.version or (args.count is not None)
         rows = results if iterate_all else results.iloc[:1]
         new_count = 0
 
@@ -249,6 +264,9 @@ def main():
                             help="Process all available versions, not just the latest")
     p_process.add_argument("--count", type=int, default=None, metavar="N",
                             help="Process at most N new (non-existing) files from the top of results")
+    p_process.add_argument("--version", metavar="V",
+                            help="Only build versions whose output filename ends with V, "
+                                 "e.g. 2021_05 or UK_2016_12")
     p_process.add_argument("--force", action="store_true",
                             help="Overwrite existing output files")
     p_process.set_defaults(func=cmd_process)

@@ -22,7 +22,7 @@ import pandas as pd
 import requests
 
 from scripts.catalog import parse_modified
-from scripts.config import BOUNDARY_CONFIGS, COVERAGE_MAP, MONTH_MAP, VALID_ITEM_TYPES
+from scripts.config import BOUNDARY_CONFIGS, COVERAGE_MAP, MONTH_MAP, TITLE_EXCLUDE, VALID_ITEM_TYPES
 
 DOWNLOAD_DIR = Path("raw/downloads")
 
@@ -71,6 +71,8 @@ def search_catalog(df: pd.DataFrame, boundary_type: str) -> pd.DataFrame:
         edition_kw = cfg.get("edition_keyword", "")
         if edition_kw:
             mask &= df["title"].str.contains(edition_kw, case=False, na=False)
+        for kw in TITLE_EXCLUDE + cfg.get("title_exclude", []):
+            mask &= ~df["title"].str.contains(kw, case=False, na=False, regex=False)
 
     results = df[mask].copy()
 
