@@ -15,8 +15,14 @@
     "simplification_pct": 50,
     "method": "visvalingam weighted keep-shapes",
     "projection": "wgs84",
-    "processed": "2026-07-01",
-    "mapshaper_version": "0.7.25"
+    "processed": "2026-10-29",
+    "mapshaper_version": "0.7.25",
+    "validity_repairs": [
+      {
+        "id": "E07000148",
+        "area_change_pct": -0.0
+      }
+    ]
   },
   "output": {
     "file": "gbr/full/LAD_UK_2023_12.json",
@@ -24,6 +30,6 @@
     "objects_key": "geog",
     "feature_count": 361,
     "source_size_mb": 250.54,
-    "output_size_mb": 22.22
+    "output_size_mb": 22.23
   }
 }

@@ -4,6 +4,7 @@
   },
   "processing": {
     "filter": "id starts with 'W' (WLS)",
+    "validity_repairs": [],
     "processed": "2026-10-29"
   },
   "output": {
@@ -11,6 +12,6 @@
     "format": "topojson",
     "objects_key": "geog",
     "feature_count": 1917,
-    "output_size_mb": 0.48
+    "output_size_mb": 0.57
   }
 }

@@ -4,6 +4,9 @@
   },
   "processing": {
     "filter": "id starts with 'E' (ENG)",
+    "validity_repairs": [
+      "E01030283"
+    ],
     "processed": "2026-10-29"
   },
   "output": {
@@ -11,6 +14,6 @@
     "format": "topojson",
     "objects_key": "geog",
     "feature_count": 33755,
-    "output_size_mb": 7.6
+    "output_size_mb": 8.46
   }
 }

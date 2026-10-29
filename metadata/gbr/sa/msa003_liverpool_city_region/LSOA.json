@@ -26,6 +26,6 @@
     "format": "topojson",
     "objects_key": "geog",
     "feature_count": 1003,
-    "output_size_mb": 0.839
+    "output_size_mb": 0.84
   }
 }

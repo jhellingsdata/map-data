@@ -4,6 +4,15 @@
   },
   "processing": {
     "filter": "id starts with 'E' (ENG)",
+    "validity_repairs": [
+      "E14001087",
+      "E14001152",
+      "E14001212",
+      "E14001244",
+      "E14001273",
+      "E14001405",
+      "E14001489"
+    ],
     "processed": "2026-10-29"
   },
   "output": {
@@ -11,6 +20,6 @@
     "format": "topojson",
     "objects_key": "geog",
     "feature_count": 543,
-    "output_size_mb": 0.54
+    "output_size_mb": 0.44
   }
 }

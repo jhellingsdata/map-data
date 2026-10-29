@@ -15,8 +15,9 @@
     "simplification_pct": 50,
     "method": "visvalingam weighted keep-shapes",
     "projection": "wgs84",
-    "processed": "2026-07-22",
-    "mapshaper_version": "0.7.25"
+    "processed": "2026-10-29",
+    "mapshaper_version": "0.7.25",
+    "validity_repairs": []
   },
   "output": {
     "file": "gbr/full/CAUTH_ENG_2025_12.json",

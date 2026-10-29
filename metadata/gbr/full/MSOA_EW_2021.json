@@ -15,8 +15,34 @@
     "simplification_pct": 50,
     "method": "visvalingam weighted keep-shapes",
     "projection": "wgs84",
-    "processed": "2026-06-29",
-    "mapshaper_version": "0.7.25"
+    "processed": "2026-10-29",
+    "mapshaper_version": "0.7.25",
+    "validity_repairs": [
+      {
+        "id": "E02003094",
+        "area_change_pct": 0.0
+      },
+      {
+        "id": "E02003149",
+        "area_change_pct": -0.0
+      },
+      {
+        "id": "E02003296",
+        "area_change_pct": 0.0
+      },
+      {
+        "id": "E02004186",
+        "area_change_pct": -0.0
+      },
+      {
+        "id": "E02004557",
+        "area_change_pct": -0.0
+      },
+      {
+        "id": "E02006822",
+        "area_change_pct": 0.0001
+      }
+    ]
   },
   "output": {
     "file": "gbr/full/MSOA_EW_2021.json",
@@ -24,6 +50,6 @@
     "objects_key": "geog",
     "feature_count": 7264,
     "source_size_mb": 627.75,
-    "output_size_mb": 41.1
+    "output_size_mb": 41.15
   }
 }

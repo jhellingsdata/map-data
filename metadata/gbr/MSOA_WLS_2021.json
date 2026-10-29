@@ -4,6 +4,9 @@
   },
   "processing": {
     "filter": "id starts with 'W' (WLS)",
+    "validity_repairs": [
+      "W02000162"
+    ],
     "processed": "2026-10-29"
   },
   "output": {

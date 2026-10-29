@@ -14,7 +14,8 @@
     "method": "visvalingam weighted keep-shapes",
     "projection": "wgs84",
     "processed": "2026-10-29",
-    "mapshaper_version": "0.7.25"
+    "mapshaper_version": "0.7.25",
+    "validity_repairs": []
   },
   "output": {
     "file": "gbr/LAD_UK_2026_05.json",
@@ -22,6 +23,6 @@
     "objects_key": "geog",
     "feature_count": 361,
     "source_size_mb": 20.56,
-    "output_size_mb": 0.4
+    "output_size_mb": 0.41
   }
 }

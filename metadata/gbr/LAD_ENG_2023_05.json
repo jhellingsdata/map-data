@@ -4,6 +4,9 @@
   },
   "processing": {
     "filter": "id starts with 'E' (ENG)",
+    "validity_repairs": [
+      "E07000227"
+    ],
     "processed": "2026-10-29"
   },
   "output": {

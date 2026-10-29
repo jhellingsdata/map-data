@@ -1,0 +1,65 @@
+{
+  "source": {
+    "id": "02e8d336d6804fbeabe6c972e5a27b16",
+    "title": "Lower layer Super Output Areas (December 2011) Boundaries EW BGC (V3)",
+    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LSOA_Dec_2011_Boundaries_Generalised_Clipped_BGC_EW_V3/FeatureServer",
+    "downloaded": "2026-10-29"
+  },
+  "processing": {
+    "boundary_type": "LSOA",
+    "id_field": "LSOA11CD",
+    "name_field": "LSOA11NM",
+    "extra_fields": {},
+    "simplification_pct": 20,
+    "method": "visvalingam weighted keep-shapes",
+    "projection": "wgs84",
+    "processed": "2026-10-29",
+    "mapshaper_version": "0.7.25",
+    "validity_repairs": [
+      {
+        "id": "E01002203",
+        "area_change_pct": 0.0
+      },
+      {
+        "id": "E01018992",
+        "area_change_pct": -5.8296
+      },
+      {
+        "id": "E01019228",
+        "area_change_pct": -0.6792
+      },
+      {
+        "id": "E01019900",
+        "area_change_pct": -3.479
+      },
+      {
+        "id": "E01024572",
+        "area_change_pct": -13.5525
+      },
+      {
+        "id": "E01025453",
+        "area_change_pct": 0.0
+      },
+      {
+        "id": "E01027444",
+        "area_change_pct": -3.7484
+      },
+      {
+        "id": "E01028694",
+        "area_change_pct": 0.0
+      },
+      {
+        "id": "W01000067",
+        "area_change_pct": -12.1713
+      }
+    ]
+  },
+  "output": {
+    "file": "gbr/LSOA_EW_2011.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 34753,
+    "source_size_mb": 93.77,
+    "output_size_mb": 8.7
+  }
+}

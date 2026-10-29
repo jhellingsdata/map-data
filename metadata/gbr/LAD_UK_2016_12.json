@@ -14,7 +14,8 @@
     "method": "visvalingam weighted keep-shapes",
     "projection": "wgs84",
     "processed": "2026-10-29",
-    "mapshaper_version": "0.7.25"
+    "mapshaper_version": "0.7.25",
+    "validity_repairs": []
   },
   "output": {
     "file": "gbr/LAD_UK_2016_12.json",
