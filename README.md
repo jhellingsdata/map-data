@@ -8,7 +8,8 @@ Collection of topojson boundaries to be used for building map visualisations
 ## UK
 
 **Administrative:**
-- Local Authority Districts (UK): [May 2024](gbr/LAD_UK_2024_05.json), [Dec 2023](gbr/LAD_UK_2023_12.json), [May 2023](gbr/LAD_UK_2023_05.json), [Dec 2022](gbr/LAD_UK_2022_12.json), [May 2022](gbr/LAD_UK_2022_05.json), [Dec 2021](gbr/LAD_UK_2021_12.json)
+- Local Authority Districts (UK): [Dec 2025](gbr/LAD_UK_2025_12.json), [May 2025](gbr/LAD_UK_2025_05.json), [Dec 2024](gbr/LAD_UK_2024_12.json), [May 2024](gbr/LAD_UK_2024_05.json), [Dec 2023](gbr/LAD_UK_2023_12.json), [May 2023](gbr/LAD_UK_2023_05.json), [Dec 2022](gbr/LAD_UK_2022_12.json), [May 2022](gbr/LAD_UK_2022_05.json), [Dec 2021](gbr/LAD_UK_2021_12.json)
+- Combined Authorities (England): [Dec 2025](gbr/CAUTH_ENG_2025_12.json)
 
 **OECD/Eurostat:**
 - ITL1 - International Territorial Level 1 (UK): [2025](gbr/ITL1_UK_2025.json), [2021](gbr/ITL1_UK_2021.json)
@@ -19,7 +20,7 @@ Collection of topojson boundaries to be used for building map visualisations
 - NUTS3 - Nomenclature of Territorial Units for Statistics 3: (UK [2018](gbr/NUTS3_UK_2018.json)), (England & Wales [2015](gbr/NUTS3_EW_2015.json))
 
 **Census:**
-- Lower layer Super Output Areas (England & Wales): [2021](gbr/LSOA_EW_2001.json), [2011](gbr/LSOA_EW_2011.json), [2001](gbr/LSOA_EW_2001.json)
+- Lower layer Super Output Areas (England & Wales): [2021](gbr/LSOA_EW_2021.json), [2011](gbr/LSOA_EW_2011.json), [2001](gbr/LSOA_EW_2001.json)
 - Middle layer Super Output Areas (England & Wales): [2021](gbr/MSOA_EW_2021.json), [2011](gbr/MSOA_EW_2011.json), [2001](gbr/MSOA_EW_2001.json)
 
 **Electoral:**
@@ -28,9 +29,17 @@ Collection of topojson boundaries to be used for building map visualisations
 
 **Home Nations:**
 - United Kingdom (ENG, NIR, SCT, WLS): [CTRY_UK](gbr/CTRY_UK.json)
-- Great Britain: [CTRY_GB](gbr/CTRY_UK.json)
+- Great Britain: [CTRY_GB](gbr/CTRY_GB.json)
 - England & Wales: [CTRY_EW](gbr/CTRY_EW.json)
 - Nations: [England](gbr/CTRY_GB-ENG.json), [Northern Ireland](gbr/CTRY_GB-NIR.json), [Scotland](gbr/CTRY_GB-SCT.json), [Wales](gbr/CTRY_GB-WLS.json),
+
+**High resolution (`gbr/full/`):**
+Near full-resolution versions, for zooming in on or filtering to small areas. These also include land area (`area`, m²) taken from the ONS full resolution (BFC, clipped to coastline) boundaries, which is useful for density calculations. Files are large (4–82 MB), so use them for subsets and local work, not whole-UK web charts.
+- Local Authority Districts: [UK Dec 2025](gbr/full/LAD_UK_2025_12.json), [UK May 2025](gbr/full/LAD_UK_2025_05.json), [UK Dec 2024](gbr/full/LAD_UK_2024_12.json), [UK May 2024](gbr/full/LAD_UK_2024_05.json), [UK Dec 2023](gbr/full/LAD_UK_2023_12.json), [UK Dec 2016](gbr/full/LAD_UK_2016_12.json), [GB Dec 2013](gbr/full/LAD_GB_2013_12.json), [EW Dec 2011](gbr/full/LAD_EW_2011_12.json)
+- Combined Authorities (England): [Dec 2025](gbr/full/CAUTH_ENG_2025_12.json)
+- Census (England & Wales): [LSOA 2021](gbr/full/LSOA_EW_2021.json), [MSOA 2021](gbr/full/MSOA_EW_2021.json)
+
+Source and processing details for pipeline-built files are in [`metadata/`](metadata/).
 
 
 ## USA
