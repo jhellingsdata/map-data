@@ -47,9 +47,10 @@ raw/                 Pipeline cache: ONS catalog CSV + raw GeoJSON downloads (gi
 - Coordinates in **WGS84** (lon/lat), quantised TopoJSON. Users set the projection in the chart.
 - Properties: **`id`** (official code, e.g. GSS `E06000001`, ITL `TLC`) and **`name`**.
   Add other properties only when they serve a purpose, with short lowercase names.
-- `gbr/full/` files also carry **`area`** in m². It comes from ONS `Shape__Area` (calculated
-  on the full-resolution BFC in British National Grid), so it is accurate even though the
-  geometry is simplified. If a source reports area in square degrees (WGS84 re-publishes,
+- `gbr/full/` files also carry **`area`** in m². **Always take area from the
+  full-resolution (BFC) source**, never from simplified geometry, so it is the most
+  correct value available. Normally this is ONS `Shape__Area` (calculated on the BFC in
+  British National Grid), passed through unchanged. If a source reports area in square degrees (WGS84 re-publishes,
   e.g. LAD Dec 2016), the pipeline computes it from geometry in EPSG:27700 instead. This is
   within about 0.02% of ONS values.
 
@@ -65,8 +66,12 @@ raw/                 Pipeline cache: ONS catalog CSV + raw GeoJSON downloads (gi
 ### Resolution & size
 - `gbr/`: built from ONS **BGC** (generalised, clipped to coastline). Target: whole-UK file
   under about 1 MB for LAD-scale, under about 10 MB for LSOA-scale.
-- `gbr/full/`: built from ONS **BFC** (full, clipped), simplified to 50%. The GitHub hard
-  limit is 100 MB per file, and GitHub warns above 50 MB. Keep files under 100 MB.
+- `gbr/full/`: built from ONS **BFC** (full, clipped), usually simplified to 50%. Keep every
+  file **under 50 MB** (GitHub warns above 50 MB and rejects files over 100 MB). Lower the
+  percentage for large geographies (LSOA uses 25%).
+- When changing a percentage, compare before and after by rendering whole-UK and zoomed
+  subsets (a city and a rural coastline) in Altair. Then use `pipeline rebuild` on the
+  published files.
 - Simplification: mapshaper `visvalingam weighted keep-shapes`. The percentage for each type
   is set in `scripts/config.py`.
 
@@ -85,6 +90,8 @@ uv run python -m scripts.pipeline search LAD_BFC        # list ONS versions; ✓
 uv run python -m scripts.pipeline process LAD           # build latest version
 uv run python -m scripts.pipeline process LAD --count 3 # build up to 3 missing versions
 uv run python -m scripts.pipeline process LAD --all [--force]
+uv run python -m scripts.pipeline rebuild gbr/LAD_UK_2025_12.json  # re-process a published
+                                                    # file from its metadata (current config)
 uv run python examples/view_map.py gbr/LAD_UK_2025_12.json   # preview in browser
 ```
 
@@ -110,16 +117,17 @@ builds every historic version ONS lists.
   MSOA, CTRY and ELE_MP. Some ITL files came from BUC (ultra-generalised) sources.
 - `gbr/LAD_UK_2021.json` uses `AREACD`/`AREANM` properties. It is a legacy duplicate of
   `LAD_UK_2021_12.json` and is kept so existing links keep working.
-- Pipeline BGC LAD files (2024_12 onwards, about 0.9 MB) have about 3× the vertices of the
-  older ones (about 0.3 MB) at the same nominal 20%. Undecided whether to lower the
-  percentage.
 - `CTRY_GB-ENG` style nation names differ from the `ENG`/`WLS` coverage codes used elsewhere.
 - `gbr/cities/london/` and `usa/` / `world/` don't follow the UK naming scheme.
-- `gbr/full/LSOA_EW_2021.json` is 82 MB, above GitHub's 50 MB warning.
 
 ## Decision log
 Newest first. Record what was decided and why.
 
+- **2026-10-29** `gbr/full/LSOA_EW_2021.json` simplified at 25% instead of 50% (82 MB → 46 MB).
+  This keeps it under GitHub's 50 MB warning, with no visible difference at borough zoom.
+- **2026-10-29** BGC LAD simplification lowered from 20% to 8% (0.88 MB → 0.41 MB). The
+  older hand-made files are about 5%, but 5% looks angular when zoomed to a city region,
+  and nation-level charts are a key teaching use.
 - **2026-10-29** Metadata path mirrors the data path (`metadata/gbr/full/…`, previously
   `metadata/full/…`). This avoids collisions if other countries gain `full/` folders.
 - **2026-10-29** `area` must be m². If ONS `Shape__Area` is in square degrees, compute it

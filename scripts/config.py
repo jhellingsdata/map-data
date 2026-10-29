@@ -49,7 +49,8 @@ BOUNDARY_CONFIGS = {
         "id_pattern": r"LAD\d{2}CD",
         "name_pattern": r"LAD\d{2}NM",
         "extra_fields": {},
-        "simplification_pct": 20,
+        # 8% of BGC ≈ 0.4 MB for the UK; 5% (as older files) gets angular when zoomed to a city
+        "simplification_pct": 8,
         "output_prefix": "LAD",
         "output_dir": "gbr",
         "versioned_by_month": True,
@@ -127,9 +128,10 @@ BOUNDARY_CONFIGS = {
         "name_pattern": r"LSOA\d{2}NM",
         # Shape_+Area matches both Shape_Area and Shape__Area (ONS uses double underscore)
         "extra_fields": {"area": r"Shape_+Area"},
-        # 50% keeps much more detail than the standard 20% BGC version.
         # Fully unsimplified BFC produces ~150MB TopoJSON — too large for GitHub.
-        "simplification_pct": 50,
+        # 50% gave 82MB (over GitHub's 50MB warning); 25% gives ~46MB with no visible
+        # difference when zoomed to a borough.
+        "simplification_pct": 25,
         "output_prefix": "LSOA",
         "output_dir": "gbr/full",
         "versioned_by_month": False,

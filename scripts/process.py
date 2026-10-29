@@ -181,13 +181,14 @@ def build_metadata(
     source_size_mb: float,
     output_size_mb: float,
     mapshaper_version: str,
+    downloaded: Optional[str] = None,
 ) -> dict:
     return {
         "source": {
             "id": source_id,
             "title": source_title,
             "url": source_url,
-            "downloaded": date.today().isoformat(),
+            "downloaded": downloaded or date.today().isoformat(),
         },
         "processing": {
             "boundary_type": boundary_type,

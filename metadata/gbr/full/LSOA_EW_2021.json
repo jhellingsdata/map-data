@@ -12,10 +12,10 @@
     "extra_fields": {
       "area": "Shape__Area"
     },
-    "simplification_pct": 50,
+    "simplification_pct": 25,
     "method": "visvalingam weighted keep-shapes",
     "projection": "wgs84",
-    "processed": "2026-06-29",
+    "processed": "2026-10-29",
     "mapshaper_version": "0.7.25"
   },
   "output": {
@@ -24,6 +24,6 @@
     "objects_key": "geog",
     "feature_count": 35672,
     "source_size_mb": 1258.07,
-    "output_size_mb": 81.81
+    "output_size_mb": 45.54
   }
 }

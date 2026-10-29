@@ -8,11 +8,13 @@ Usage:
     uv run python -m scripts.pipeline process LAD          # process latest LAD
     uv run python -m scripts.pipeline process LAD --all    # process all available LAD versions
     uv run python -m scripts.pipeline process all          # process latest of every type
+    uv run python -m scripts.pipeline rebuild gbr/LAD_UK_2025_12.json  # re-process from metadata
 """
 
 import argparse
 import json
 import sys
+from datetime import date
 from pathlib import Path
 
 from scripts.catalog import fetch_catalog
@@ -70,6 +72,100 @@ def cmd_search(args):
                 print(f"        → {Path(cfg.get('output_dir', 'gbr')) / fname if fname != '(date not parseable)' else fname}")
 
 
+def build_one(
+    btype: str,
+    item_id: str,
+    title: str,
+    source_url: str,
+    output_path: Path,
+    mapshaper_ver: str,
+) -> bool:
+    """Download (or reuse cached), process and write metadata for one ONS item."""
+    cfg = BOUNDARY_CONFIGS[btype]
+    # Metadata mirrors the data path: gbr/full/X.json → metadata/gbr/full/X.json
+    metadata_path = METADATA_DIR / output_path
+
+    # Download
+    try:
+        extract_dir = download_boundary(
+            item_id,
+            page_size=cfg.get("download_page_size", 2000),
+        )
+        shp_path = find_shapefile(extract_dir)
+    except (RuntimeError, FileNotFoundError) as e:
+        print(f"  Download failed: {e}")
+        return False
+
+    # Detect source field names
+    try:
+        id_field, name_field, extra_fields = detect_fields(
+            shp_path,
+            cfg["id_pattern"],
+            cfg["name_pattern"],
+            cfg.get("extra_fields"),
+        )
+    except (RuntimeError, ValueError) as e:
+        print(f"  Field detection failed: {e}")
+        return False
+
+    print(f"  id field: {id_field}  |  name field: {name_field}")
+    if extra_fields:
+        print(f"  extra fields: {extra_fields}")
+
+    # Process
+    try:
+        feature_count, source_mb, output_mb = process_boundary(
+            shp_path,
+            id_field,
+            name_field,
+            output_path,
+            simplification_pct=cfg.get("simplification_pct"),
+            extra_fields=extra_fields,
+        )
+    except RuntimeError as e:
+        print(f"  Processing failed: {e}")
+        return False
+
+    # Save metadata
+    metadata_path.parent.mkdir(parents=True, exist_ok=True)
+    meta = build_metadata(
+        boundary_type=btype,
+        source_id=item_id,
+        source_title=title,
+        source_url=source_url,
+        id_field=id_field,
+        name_field=name_field,
+        extra_fields=extra_fields,
+        simplification_pct=cfg.get("simplification_pct"),
+        output_file=str(output_path),
+        feature_count=feature_count,
+        source_size_mb=source_mb,
+        output_size_mb=output_mb,
+        mapshaper_version=mapshaper_ver,
+        downloaded=date.fromtimestamp(shp_path.stat().st_mtime).isoformat(),
+    )
+    with open(metadata_path, "w") as f:
+        json.dump(meta, f, indent=2)
+    print(f"  Metadata → {metadata_path}")
+    return True
+
+
+def cmd_rebuild(args):
+    """Re-process published files from their metadata, using current config settings."""
+    mapshaper_ver = get_mapshaper_version()
+    for fpath in args.files:
+        output_path = Path(fpath)
+        metadata_path = METADATA_DIR / output_path
+        if not metadata_path.exists():
+            print(f"\nNo metadata for {output_path} (not a pipeline file?) — skipping.")
+            continue
+        meta = json.loads(metadata_path.read_text())
+        src, btype = meta["source"], meta["processing"]["boundary_type"]
+        print(f"\n{'=' * 60}")
+        print(f"[{btype}] {src['title']}  →  {output_path}")
+        build_one(btype, src["id"], src["title"], src["url"], output_path, mapshaper_ver)
+
+
 def cmd_process(args):
     df = fetch_catalog()
     mapshaper_ver = get_mapshaper_version()
@@ -108,74 +204,13 @@ def cmd_process(args):
                 continue
 
             output_path = output_dir / output_filename
-            # Metadata mirrors the data path: gbr/full/X.json → metadata/gbr/full/X.json
-            metadata_path = METADATA_DIR / output_path
 
             if output_path.exists() and not args.force:
                 print(f"  Already exists: {output_path}  (use --force to overwrite)")
                 continue
 
-            # Download
-            try:
-                extract_dir = download_boundary(
-                    item_id,
-                    page_size=cfg.get("download_page_size", 2000),
-                )
-                shp_path = find_shapefile(extract_dir)
-            except (RuntimeError, FileNotFoundError) as e:
-                print(f"  Download failed: {e}")
+            if not build_one(btype, item_id, title, source_url, output_path, mapshaper_ver):
                 continue
-
-            # Detect source field names
-            try:
-                id_field, name_field, extra_fields = detect_fields(
-                    shp_path,
-                    cfg["id_pattern"],
-                    cfg["name_pattern"],
-                    cfg.get("extra_fields"),
-                )
-            except (RuntimeError, ValueError) as e:
-                print(f"  Field detection failed: {e}")
-                continue
-
-            print(f"  id field: {id_field}  |  name field: {name_field}")
-            if extra_fields:
-                print(f"  extra fields: {extra_fields}")
-
-            # Process
-            try:
-                feature_count, source_mb, output_mb = process_boundary(
-                    shp_path,
-                    id_field,
-                    name_field,
-                    output_path,
-                    simplification_pct=cfg.get("simplification_pct"),
-                    extra_fields=extra_fields,
-                )
-            except RuntimeError as e:
-                print(f"  Processing failed: {e}")
-                continue
-
-            # Save metadata
-            metadata_path.parent.mkdir(parents=True, exist_ok=True)
-            meta = build_metadata(
-                boundary_type=btype,
-                source_id=item_id,
-                source_title=title,
-                source_url=source_url,
-                id_field=id_field,
-                name_field=name_field,
-                extra_fields=extra_fields,
-                simplification_pct=cfg.get("simplification_pct"),
-                output_file=str(output_path),
-                feature_count=feature_count,
-                source_size_mb=source_mb,
-                output_size_mb=output_mb,
-                mapshaper_version=mapshaper_ver,
-            )
-            with open(metadata_path, "w") as f:
-                json.dump(meta, f, indent=2)
-            print(f"  Metadata → {metadata_path}")
             new_count += 1
             if args.count is not None and new_count >= args.count:
                 print(f"  Reached --count {args.count} limit.")
@@ -213,6 +248,10 @@ def main():
     p_process.add_argument("--force", action="store_true",
                             help="Overwrite existing output files")
     p_process.set_defaults(func=cmd_process)
+
+    p_rebuild = sub.add_parser("rebuild", help="Re-process published files from their metadata")
+    p_rebuild.add_argument("files", nargs="+", help="Output file path(s), e.g. gbr/LAD_UK_2025_12.json")
+    p_rebuild.set_defaults(func=cmd_rebuild)
 
     args = parser.parse_args()
     args.func(args)
