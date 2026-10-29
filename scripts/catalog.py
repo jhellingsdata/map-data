@@ -64,6 +64,19 @@ def _load_csv(path: Path) -> pd.DataFrame:
     return df
 
 
+def parse_modified(values: pd.Series) -> pd.Series:
+    """
+    Parse catalog timestamps to UTC datetimes.
+
+    The Hub feed has used both epoch milliseconds and RFC 1123 strings
+    ('Tue, 27 Oct 2026 16:33:21 GMT'), so handle either.
+    """
+    numeric = pd.to_numeric(values, errors="coerce")
+    if numeric.notna().all():
+        return pd.to_datetime(numeric, unit="ms", utc=True)
+    return pd.to_datetime(values, format="%a, %d %b %Y %H:%M:%S GMT", errors="coerce", utc=True)
+
+
 def catalog_info(df: pd.DataFrame) -> None:
     """Print a quick summary of the catalog."""
     print(f"Total entries : {len(df):,}")
@@ -71,5 +84,5 @@ def catalog_info(df: pd.DataFrame) -> None:
         print("\nTop item types:")
         print(df["type"].value_counts().head(10).to_string())
     if "modified" in df.columns:
-        latest = pd.to_datetime(df["modified"], unit="ms", errors="coerce").max()
+        latest = parse_modified(df["modified"]).max()
         print(f"\nMost recently modified: {latest:%Y-%m-%d}" if pd.notna(latest) else "")

@@ -21,6 +21,7 @@ from typing import Optional
 import pandas as pd
 import requests
 
+from scripts.catalog import parse_modified
 from scripts.config import BOUNDARY_CONFIGS, COVERAGE_MAP, MONTH_MAP, VALID_ITEM_TYPES
 
 DOWNLOAD_DIR = Path("raw/downloads")
@@ -74,7 +75,7 @@ def search_catalog(df: pd.DataFrame, boundary_type: str) -> pd.DataFrame:
     results = df[mask].copy()
 
     if "modified" in results.columns:
-        results["_modified_dt"] = pd.to_datetime(results["modified"], unit="ms", errors="coerce")
+        results["_modified_dt"] = parse_modified(results["modified"])
         results = results.sort_values("_modified_dt", ascending=False).drop(columns=["_modified_dt"])
 
     return results.reset_index(drop=True)
@@ -154,11 +155,13 @@ def get_layer_id(service_url: str) -> int:
 
     Most ONS services publish their geometry as layer 0, but some (e.g.
     Combined Authorities) use a different id, so ask the service rather
-    than assuming.
+    than assuming. Lookup services have no layers, only attribute tables,
+    so fall back to those.
     """
     resp = requests.get(service_url, params={"f": "json"}, headers=HEADERS, timeout=30)
     resp.raise_for_status()
-    layers = resp.json().get("layers", [])
+    info = resp.json()
+    layers = info.get("layers") or info.get("tables") or []
     if not layers:
         raise RuntimeError(f"No layers found in feature service {service_url}")
     if len(layers) > 1:
