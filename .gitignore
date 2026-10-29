@@ -1,1 +1,17 @@
 *.DS_Store
+
+# Raw source downloads — large files, not committed
+raw/downloads/
+raw/catalog/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Preview outputs from view_map.py
+*_preview.html

@@ -1,0 +1,16 @@
+[project]
+name = "map-data"
+version = "0.1.0"
+description = "Scripts for fetching and processing UK geographic boundary data from ONS GeoPortal"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32",
+    "pandas>=2.2",
+    "altair>=5.4",
+]
+
+[dependency-groups]
+dev = [
+    "jupyter>=1.1",
+    "ipykernel>=6.29",
+]
