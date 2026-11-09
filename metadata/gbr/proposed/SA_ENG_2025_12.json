@@ -1,0 +1,40 @@
+{
+  "source": {
+    "files": [
+      "gbr/LAD_UK_2025_12.json"
+    ],
+    "inputs": [
+      "scripts/inputs/strategic_authorities.csv",
+      "scripts/inputs/strategic_authorities_lads.csv",
+      "scripts/inputs/strategic_authority_status.csv"
+    ]
+  },
+  "processing": {
+    "map": "proposed SAs on 2025_12, LAD boundaries 2025_12",
+    "method": "dissolve member LADs by sa_id (no further simplification)",
+    "fields": [
+      "id",
+      "name",
+      "short",
+      "status",
+      "tier",
+      "planned_tier",
+      "gss_id",
+      "cty_id",
+      "established_from",
+      "mayor_from",
+      "rgn_id",
+      "itl1_id",
+      "itl2_id",
+      "itl2_2021_id"
+    ],
+    "processed": "2026-11-09"
+  },
+  "output": {
+    "file": "gbr/proposed/SA_ENG_2025_12.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 22,
+    "output_size_mb": 0.093
+  }
+}

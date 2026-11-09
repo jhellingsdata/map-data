@@ -1,22 +1,33 @@
-id,name,short,cauth_id,rgn_id,itl1_id,itl2_id,itl2_2021_id,n_lads
-MSA001,Greater Manchester,,E47000001,E12000002,TLD,TLD3,TLD3,10
-MSA002,West Midlands,,E47000007,E12000005,TLG,TLG3,TLG3,7
-MSA003,Liverpool City Region,,E47000004,E12000002,TLD,TLD7,TLD7,6
-MSA004,South Yorkshire,,E47000002,E12000003,TLE,TLE3,TLE3,4
-MSA005,West Yorkshire,,E47000003,E12000003,TLE,TLE4,TLE4,5
-MSA006,Tees Valley,,E47000006,E12000001,TLC,TLC3,,5
-MSA007,North East,,E47000014,E12000001,TLC,TLC4,,7
-MSA008,Cambridgeshire and Peterborough,,E47000008,E12000006,TLH,TLH4,,6
-MSA009,West of England,,E47000009,E12000009,TLK,TLK5,,3
-MSA010,York and North Yorkshire,,E47000012,E12000003,TLE,TLE2,TLE2,2
-MSA011,East Midlands,,E47000013,E12000004,TLF,TLF1,TLF1,17
-MSA012,Hull and East Yorkshire,,E47000016,E12000003,TLE,,,2
-MSA013,Greater Essex,,,E12000006,TLH,TLH3,TLH3,14
-MSA014,Sussex and Brighton,,,E12000008,TLJ,,,13
-MSA015,Hampshire and the Solent,,,E12000008,TLJ,TLJ3,TLJ3,14
-MSA016,Cumbria,,,E12000002,TLD,TLD1,TLD1,2
-MSA017,Cheshire and Warrington,,,E12000002,TLD,TLD6,TLD6,3
-MSA018,Devon and Torbay,,E47000015,E12000009,TLK,,,9
-MSA019,Greater Lincolnshire,,E47000017,E12000003;E12000004,TLE;TLF,,,9
-MSA020,Lancashire,,E47000018,E12000002,TLD,TLD4,TLD4,14
-MSA021,Norfolk and Suffolk,,,E12000006,TLH,,,12
+id,name,short,cauth_id,rgn_id,itl1_id,itl2_id,itl2_2021_id,n_lads,gss_id,established_from,established_source,mayor_from,body_id,replaces,research_set
+MSA001,Greater Manchester,GMCA,E47000001,E12000002,TLD,TLD3,TLD3,10,E47000001,2011-04-01,"SI 2011/908, made 22 Mar 2011, in force 1 Apr 2011",2017,MSA001,,true
+MSA002,West Midlands,WMCA,E47000007,E12000005,TLG,TLG3,TLG3,7,E47000007,2016-06-17,"SI 2016/653, made 16 Jun 2016, in force the day after",2017,MSA002,,true
+MSA003,Liverpool City Region,LCRCA,E47000004,E12000002,TLD,TLD7,TLD7,6,E47000004,2014-04-01,"SI 2014/865, made 31 Mar 2014, in force the day after",2017,MSA003,,true
+MSA004,South Yorkshire,SYMCA,E47000002,E12000003,TLE,TLE3,TLE3,4,E47000002,2014-04-01,"SI 2014/863 (as the Barnsley, Doncaster, Rotherham and Sheffield Combined Authority), made 31 Mar 2014, in force the day after",2018,MSA004,,true
+MSA005,West Yorkshire,WYCA,E47000003,E12000003,TLE,TLE4,TLE4,5,E47000003,2014-04-01,"SI 2014/864, made 31 Mar 2014, in force the day after",2021,MSA005,,true
+MSA006,Tees Valley,TVCA,E47000006,E12000001,TLC,TLC3,,5,E47000006,2016-04-01,"SI 2016/449, made 29 Mar 2016, in force 1 Apr 2016",2017,MSA006,,true
+MSA007,North East,NECA,E47000014,E12000001,TLC,TLC4,,7,E47000014,2014-04-15,"SI 2014/1012 (the 2014 North East Combined Authority, the same 7 councils), made 14 Apr 2014, in force the day after",2024,MSA007,,true
+MSA008,Cambridgeshire and Peterborough,CPCA,E47000008,E12000006,TLH,TLH4,,6,E47000008,2017-03-03,"SI 2017/251, made 2 Mar 2017, in force the day after",2017,MSA008,,true
+MSA009,West of England,WECA,E47000009,E12000009,TLK,TLK5,,3,E47000009,2017-02-09,"SI 2017/126, made 8 Feb 2017, in force the day after",2017,MSA009,,true
+MSA010,York and North Yorkshire,YNYCA,E47000012,E12000003,TLE,TLE2,TLE2,2,E47000012,2023-12-20,"SI 2023/1432, made 19 Dec 2023, in force the day after",2024,MSA010,,true
+MSA011,East Midlands,EMCCA,E47000013,E12000004,TLF,TLF1,TLF1,17,E47000013,2024-02-28,"SI 2024/232, made 27 Feb 2024, in force the day after",2024,MSA011,,true
+MSA012,Hull and East Yorkshire,HEYCA,E47000016,E12000003,TLE,,,2,E47000016,2025-02-05,"SI 2025/113, made 4 Feb 2025, in force the day after",2025,MSA012,,true
+MSA013,Greater Essex,GECCA,,E12000006,TLH,TLH3,TLH3,14,,,,2028,MSA013,,true
+MSA014,Sussex and Brighton,SBCCA,,E12000008,TLJ,,,13,,2026-03-26,"SI 2026/362, made 25 Mar 2026, in force the day after; mayoral functions from 8 May 2028",2028,MSA014,,true
+MSA015,Hampshire and the Solent,HSCCA,,E12000008,TLJ,TLJ3,TLJ3,14,,2026-06-04,"SI 2026/595, made 3 Jun 2026, in force the day after; mayoral functions from 8 May 2028",2028,MSA015,,true
+MSA016,Cumbria,CCA,,E12000002,TLD,TLD1,TLD1,2,,2026-02-24,"SI 2026/158, made 23 Feb 2026, in force the day after; mayoral functions from 10 May 2027",2027,MSA016,,true
+MSA017,Cheshire and Warrington,CWCA,,E12000002,TLD,TLD6,TLD6,3,,2026-02-24,"SI 2026/159, made 23 Feb 2026, in force the day after; mayoral functions from 10 May 2027",2027,MSA017,,true
+MSA018,Devon and Torbay,DTCCA,E47000015,E12000009,TLK,,,9,E47000015,2025-02-05,"SI 2025/115, made 4 Feb 2025, in force the day after",,MSA018,,true
+MSA019,Greater Lincolnshire,GLCCA,E47000017,E12000003;E12000004,TLE;TLF,,,9,E47000017,2025-02-05,"SI 2025/117, made 4 Feb 2025, in force the day after",2025,MSA019,,true
+MSA020,Lancashire,LCCA,E47000018,E12000002,TLD,TLD4,TLD4,14,E47000018,2025-02-05,"SI 2025/118, made 4 Feb 2025, in force the day after",,MSA020,,true
+MSA021,Norfolk and Suffolk,NSCCA,,E12000006,TLH,,,12,,,,2028,MSA021,,true
+MSA022,Greater London,GLA,,E12000007,TLI,,,33,E61000001,2000-07-03,Greater London Authority Act 1999; the GLA took up its functions on 3 Jul 2000,2000,MSA022,,false
+MSA023,Hertfordshire,,,E12000006,TLH,,,10,,,,,MSA023,,false
+MSA024,Kent and Medway,,,E12000008,TLJ,TLJ4,TLJ4,13,,,,,MSA024,,false
+MSA025,Thames Valley,,,E12000008;E12000009,TLJ;TLK,,,12,,,,,MSA025,,false
+MSA026,Surrey,,,E12000008,TLJ,,,11,,,,,MSA026,,false
+MSA027,"Leicester, Leicestershire and Rutland",,,E12000004,TLF,,,9,,,,,MSA027,,false
+MSA028,Stoke and Staffordshire,,,E12000005,TLG,,,9,,,,,MSA028,,false
+MSA029,Wessex,,,E12000009,TLK,,,4,,,,,MSA029,,false
+MSA030,Cornwall,,,E12000009,TLK,,,1,,,,,MSA030,,false
+MSA031,"Devon, Plymouth and Torbay",,,E12000009,TLK,TLK4,TLK4,10,,,,,MSA031,MSA018,false
+MSA032,West of England,WECA,,E12000009,TLK,,,4,,,,2029,MSA009,MSA009,false

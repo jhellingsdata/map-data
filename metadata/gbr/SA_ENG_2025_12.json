@@ -5,28 +5,36 @@
     ],
     "inputs": [
       "scripts/inputs/strategic_authorities.csv",
-      "scripts/inputs/strategic_authorities_lads.csv"
+      "scripts/inputs/strategic_authorities_lads.csv",
+      "scripts/inputs/strategic_authority_status.csv"
     ]
   },
   "processing": {
+    "map": "current SAs on 2025_12, LAD boundaries 2025_12",
     "method": "dissolve member LADs by sa_id (no further simplification)",
     "fields": [
       "id",
       "name",
       "short",
-      "cauth_id",
+      "status",
+      "tier",
+      "planned_tier",
+      "gss_id",
+      "cty_id",
+      "established_from",
+      "mayor_from",
       "rgn_id",
       "itl1_id",
       "itl2_id",
       "itl2_2021_id"
     ],
-    "processed": "2026-10-29"
+    "processed": "2026-11-09"
   },
   "output": {
     "file": "gbr/SA_ENG_2025_12.json",
     "format": "topojson",
     "objects_key": "geog",
-    "feature_count": 21,
-    "output_size_mb": 0.087
+    "feature_count": 16,
+    "output_size_mb": 0.059
   }
 }

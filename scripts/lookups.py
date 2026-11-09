@@ -21,10 +21,10 @@ from pathlib import Path
 import pandas as pd
 import requests
 
+from scripts import strategic_authorities as sa_build
 from scripts.fetch import HEADERS, get_item_service_url, get_layer_id
 
 LOOKUP_CACHE = Path("raw/lookups")
-SA_LADS = Path("scripts/inputs/strategic_authorities_lads.csv")
 OUTPUT_DIR = Path("gbr/lookups")
 
 # ONS lookup items used as sources
@@ -145,9 +145,12 @@ def build_lad_2025() -> Path:
         .merge(_one_per(itl.drop(columns="lad_name"), "lad_id"), on="lad_id", how="left")
         .merge(_one_per(cauth.drop(columns="lad_name"), "lad_id"), on="lad_id", how="left")
     )
-    # Strategic Authorities are not an ONS geography: membership comes from the
-    # inputs that also build gbr/SA_ENG_2025_12.json (scripts/strategic_authorities.py).
-    sa = pd.read_csv(SA_LADS, dtype=str)[["lad_id", "sa_id", "sa_name"]]
+    # Strategic Authorities are not an ONS geography: membership comes from the msa-data
+    # inputs (scripts/strategic_authorities.py). The columns follow the Dec 2025 proposed
+    # map (gbr/proposed/SA_ENG_2025_12.json): the 16 legally established SAs, London
+    # included, plus the 6 Devolution Priority Programme areas.
+    _, lads, status = sa_build.load_inputs()
+    sa = sa_build.map_members(lads, status, *sa_build.FOLDER_MAP)[["lad_id", "sa_id", "sa_name"]]
     df = df.merge(_one_per(sa, "lad_id"), on="lad_id", how="left")
     df = df[[
         "lad_id", "lad_name", "ctyua_id", "ctyua_name", "ctry_id", "ctry_name", "rgn_id", "rgn_name",

@@ -1,0 +1,32 @@
+{
+  "source": {
+    "files": [
+      "gbr/full/LSOA_EW_2021.json",
+      "gbr/lookups/LSOA_EW_2021.csv"
+    ],
+    "inputs": [
+      "scripts/inputs/strategic_authorities.csv",
+      "scripts/inputs/strategic_authorities_lads.csv",
+      "scripts/inputs/strategic_authority_status.csv"
+    ]
+  },
+  "processing": {
+    "subset": "LSOAs (2021) in MSA022 Greater London",
+    "method": "cut from full LSOAs",
+    "fields": [
+      "id",
+      "name",
+      "area",
+      "msoa_id",
+      "lad_id"
+    ],
+    "processed": "2026-11-09"
+  },
+  "output": {
+    "file": "gbr/sa/msa022_greater_london/LSOA.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 4994,
+    "output_size_mb": 3.153
+  }
+}

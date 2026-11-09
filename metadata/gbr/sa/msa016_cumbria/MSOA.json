@@ -6,7 +6,8 @@
     ],
     "inputs": [
       "scripts/inputs/strategic_authorities.csv",
-      "scripts/inputs/strategic_authorities_lads.csv"
+      "scripts/inputs/strategic_authorities_lads.csv",
+      "scripts/inputs/strategic_authority_status.csv"
     ]
   },
   "processing": {
@@ -18,7 +19,7 @@
       "area",
       "lad_id"
     ],
-    "processed": "2026-10-29"
+    "processed": "2026-11-09"
   },
   "output": {
     "file": "gbr/sa/msa016_cumbria/MSOA.json",

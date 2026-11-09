@@ -262,39 +262,39 @@ E08000036,Wakefield,E08000036,Wakefield,E92000001,England,E12000003,Yorkshire an
 E08000037,Gateshead,E08000037,Gateshead,E92000001,England,E12000001,North East,E47000014,North East,MSA007,North East,TLC,North East (England),TLC4,"Northumberland, Durham and Tyne & Wear",TLC43,Tyneside
 E08000038,Barnsley,E08000038,Barnsley,E92000001,England,E12000003,Yorkshire and The Humber,E47000002,South Yorkshire,MSA004,South Yorkshire,TLE,Yorkshire and The Humber,TLE3,South Yorkshire,TLE33,Barnsley
 E08000039,Sheffield,E08000039,Sheffield,E92000001,England,E12000003,Yorkshire and The Humber,E47000002,South Yorkshire,MSA004,South Yorkshire,TLE,Yorkshire and The Humber,TLE3,South Yorkshire,TLE32,Sheffield
-E09000001,City of London,E09000001,City of London,E92000001,England,E12000007,London,,,,,TLI,London,TLI3,Inner London - West,TLI35,Westminster and City of London
-E09000002,Barking and Dagenham,E09000002,Barking and Dagenham,E92000001,England,E12000007,London,,,,,TLI,London,TLI5,Outer London - East and North East,TLI52,Barking & Dagenham and Havering
-E09000003,Barnet,E09000003,Barnet,E92000001,England,E12000007,London,,,,,TLI,London,TLI7,Outer London - West and North West,TLI71,Barnet
-E09000004,Bexley,E09000004,Bexley,E92000001,England,E12000007,London,,,,,TLI,London,TLI5,Outer London - East and North East,TLI51,Bexley and Greenwich
-E09000005,Brent,E09000005,Brent,E92000001,England,E12000007,London,,,,,TLI,London,TLI7,Outer London - West and North West,TLI72,Brent
-E09000006,Bromley,E09000006,Bromley,E92000001,England,E12000007,London,,,,,TLI,London,TLI6,Outer London - South,TLI61,Bromley
-E09000007,Camden,E09000007,Camden,E92000001,England,E12000007,London,,,,,TLI,London,TLI3,Inner London - West,TLI36,Camden
-E09000008,Croydon,E09000008,Croydon,E92000001,England,E12000007,London,,,,,TLI,London,TLI6,Outer London - South,TLI62,Croydon
-E09000009,Ealing,E09000009,Ealing,E92000001,England,E12000007,London,,,,,TLI,London,TLI7,Outer London - West and North West,TLI73,Ealing
-E09000010,Enfield,E09000010,Enfield,E92000001,England,E12000007,London,,,,,TLI,London,TLI5,Outer London - East and North East,TLI54,Enfield
-E09000011,Greenwich,E09000011,Greenwich,E92000001,England,E12000007,London,,,,,TLI,London,TLI5,Outer London - East and North East,TLI51,Bexley and Greenwich
-E09000012,Hackney,E09000012,Hackney,E92000001,England,E12000007,London,,,,,TLI,London,TLI4,Inner London - East,TLI41,Hackney and Newham
-E09000013,Hammersmith and Fulham,E09000013,Hammersmith and Fulham,E92000001,England,E12000007,London,,,,,TLI,London,TLI3,Inner London - West,TLI33,Kensington & Chelsea and Hammersmith & Fulham
-E09000014,Haringey,E09000014,Haringey,E92000001,England,E12000007,London,,,,,TLI,London,TLI4,Inner London - East,TLI43,Haringey and Islington
-E09000015,Harrow,E09000015,Harrow,E92000001,England,E12000007,London,,,,,TLI,London,TLI7,Outer London - West and North West,TLI74,Harrow and Hillingdon
-E09000016,Havering,E09000016,Havering,E92000001,England,E12000007,London,,,,,TLI,London,TLI5,Outer London - East and North East,TLI52,Barking & Dagenham and Havering
-E09000017,Hillingdon,E09000017,Hillingdon,E92000001,England,E12000007,London,,,,,TLI,London,TLI7,Outer London - West and North West,TLI74,Harrow and Hillingdon
-E09000018,Hounslow,E09000018,Hounslow,E92000001,England,E12000007,London,,,,,TLI,London,TLI7,Outer London - West and North West,TLI75,Hounslow and Richmond upon Thames
-E09000019,Islington,E09000019,Islington,E92000001,England,E12000007,London,,,,,TLI,London,TLI4,Inner London - East,TLI43,Haringey and Islington
-E09000020,Kensington and Chelsea,E09000020,Kensington and Chelsea,E92000001,England,E12000007,London,,,,,TLI,London,TLI3,Inner London - West,TLI33,Kensington & Chelsea and Hammersmith & Fulham
-E09000021,Kingston upon Thames,E09000021,Kingston upon Thames,E92000001,England,E12000007,London,,,,,TLI,London,TLI6,Outer London - South,TLI63,"Merton, Kingston upon Thames and Sutton"
-E09000022,Lambeth,E09000022,Lambeth,E92000001,England,E12000007,London,,,,,TLI,London,TLI4,Inner London - East,TLI45,Lambeth
-E09000023,Lewisham,E09000023,Lewisham,E92000001,England,E12000007,London,,,,,TLI,London,TLI4,Inner London - East,TLI44,Lewisham and Southwark
-E09000024,Merton,E09000024,Merton,E92000001,England,E12000007,London,,,,,TLI,London,TLI6,Outer London - South,TLI63,"Merton, Kingston upon Thames and Sutton"
-E09000025,Newham,E09000025,Newham,E92000001,England,E12000007,London,,,,,TLI,London,TLI4,Inner London - East,TLI41,Hackney and Newham
-E09000026,Redbridge,E09000026,Redbridge,E92000001,England,E12000007,London,,,,,TLI,London,TLI5,Outer London - East and North East,TLI53,Redbridge and Waltham Forest
-E09000027,Richmond upon Thames,E09000027,Richmond upon Thames,E92000001,England,E12000007,London,,,,,TLI,London,TLI7,Outer London - West and North West,TLI75,Hounslow and Richmond upon Thames
-E09000028,Southwark,E09000028,Southwark,E92000001,England,E12000007,London,,,,,TLI,London,TLI4,Inner London - East,TLI44,Lewisham and Southwark
-E09000029,Sutton,E09000029,Sutton,E92000001,England,E12000007,London,,,,,TLI,London,TLI6,Outer London - South,TLI63,"Merton, Kingston upon Thames and Sutton"
-E09000030,Tower Hamlets,E09000030,Tower Hamlets,E92000001,England,E12000007,London,,,,,TLI,London,TLI4,Inner London - East,TLI42,Tower Hamlets
-E09000031,Waltham Forest,E09000031,Waltham Forest,E92000001,England,E12000007,London,,,,,TLI,London,TLI5,Outer London - East and North East,TLI53,Redbridge and Waltham Forest
-E09000032,Wandsworth,E09000032,Wandsworth,E92000001,England,E12000007,London,,,,,TLI,London,TLI3,Inner London - West,TLI34,Wandsworth
-E09000033,Westminster,E09000033,Westminster,E92000001,England,E12000007,London,,,,,TLI,London,TLI3,Inner London - West,TLI35,Westminster and City of London
+E09000001,City of London,E09000001,City of London,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI3,Inner London - West,TLI35,Westminster and City of London
+E09000002,Barking and Dagenham,E09000002,Barking and Dagenham,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI5,Outer London - East and North East,TLI52,Barking & Dagenham and Havering
+E09000003,Barnet,E09000003,Barnet,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI7,Outer London - West and North West,TLI71,Barnet
+E09000004,Bexley,E09000004,Bexley,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI5,Outer London - East and North East,TLI51,Bexley and Greenwich
+E09000005,Brent,E09000005,Brent,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI7,Outer London - West and North West,TLI72,Brent
+E09000006,Bromley,E09000006,Bromley,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI6,Outer London - South,TLI61,Bromley
+E09000007,Camden,E09000007,Camden,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI3,Inner London - West,TLI36,Camden
+E09000008,Croydon,E09000008,Croydon,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI6,Outer London - South,TLI62,Croydon
+E09000009,Ealing,E09000009,Ealing,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI7,Outer London - West and North West,TLI73,Ealing
+E09000010,Enfield,E09000010,Enfield,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI5,Outer London - East and North East,TLI54,Enfield
+E09000011,Greenwich,E09000011,Greenwich,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI5,Outer London - East and North East,TLI51,Bexley and Greenwich
+E09000012,Hackney,E09000012,Hackney,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI4,Inner London - East,TLI41,Hackney and Newham
+E09000013,Hammersmith and Fulham,E09000013,Hammersmith and Fulham,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI3,Inner London - West,TLI33,Kensington & Chelsea and Hammersmith & Fulham
+E09000014,Haringey,E09000014,Haringey,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI4,Inner London - East,TLI43,Haringey and Islington
+E09000015,Harrow,E09000015,Harrow,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI7,Outer London - West and North West,TLI74,Harrow and Hillingdon
+E09000016,Havering,E09000016,Havering,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI5,Outer London - East and North East,TLI52,Barking & Dagenham and Havering
+E09000017,Hillingdon,E09000017,Hillingdon,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI7,Outer London - West and North West,TLI74,Harrow and Hillingdon
+E09000018,Hounslow,E09000018,Hounslow,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI7,Outer London - West and North West,TLI75,Hounslow and Richmond upon Thames
+E09000019,Islington,E09000019,Islington,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI4,Inner London - East,TLI43,Haringey and Islington
+E09000020,Kensington and Chelsea,E09000020,Kensington and Chelsea,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI3,Inner London - West,TLI33,Kensington & Chelsea and Hammersmith & Fulham
+E09000021,Kingston upon Thames,E09000021,Kingston upon Thames,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI6,Outer London - South,TLI63,"Merton, Kingston upon Thames and Sutton"
+E09000022,Lambeth,E09000022,Lambeth,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI4,Inner London - East,TLI45,Lambeth
+E09000023,Lewisham,E09000023,Lewisham,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI4,Inner London - East,TLI44,Lewisham and Southwark
+E09000024,Merton,E09000024,Merton,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI6,Outer London - South,TLI63,"Merton, Kingston upon Thames and Sutton"
+E09000025,Newham,E09000025,Newham,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI4,Inner London - East,TLI41,Hackney and Newham
+E09000026,Redbridge,E09000026,Redbridge,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI5,Outer London - East and North East,TLI53,Redbridge and Waltham Forest
+E09000027,Richmond upon Thames,E09000027,Richmond upon Thames,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI7,Outer London - West and North West,TLI75,Hounslow and Richmond upon Thames
+E09000028,Southwark,E09000028,Southwark,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI4,Inner London - East,TLI44,Lewisham and Southwark
+E09000029,Sutton,E09000029,Sutton,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI6,Outer London - South,TLI63,"Merton, Kingston upon Thames and Sutton"
+E09000030,Tower Hamlets,E09000030,Tower Hamlets,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI4,Inner London - East,TLI42,Tower Hamlets
+E09000031,Waltham Forest,E09000031,Waltham Forest,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI5,Outer London - East and North East,TLI53,Redbridge and Waltham Forest
+E09000032,Wandsworth,E09000032,Wandsworth,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI3,Inner London - West,TLI34,Wandsworth
+E09000033,Westminster,E09000033,Westminster,E92000001,England,E12000007,London,,,MSA022,Greater London,TLI,London,TLI3,Inner London - West,TLI35,Westminster and City of London
 N09000001,Antrim and Newtownabbey,N09000001,Antrim and Newtownabbey,N92000002,Northern Ireland,,,,,,,TLN,Northern Ireland,TLN0,Northern Ireland,TLN0D,Antrim and Newtownabbey
 N09000002,"Armagh City, Banbridge and Craigavon",N09000002,"Armagh City, Banbridge and Craigavon",N92000002,Northern Ireland,,,,,,,TLN,Northern Ireland,TLN0,Northern Ireland,TLN07,"Armagh City, Banbridge and Craigavon"
 N09000003,Belfast,N09000003,Belfast,N92000002,Northern Ireland,,,,,,,TLN,Northern Ireland,TLN0,Northern Ireland,TLN06,Belfast

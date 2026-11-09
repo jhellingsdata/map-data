@@ -5,6 +5,7 @@ raw/downloads/
 raw/catalog/
 raw/lookups/
 raw/areas/
+raw/sa/
 
 # Python
 .venv/

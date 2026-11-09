@@ -33,6 +33,8 @@ gbr/full/            UK boundaries near full resolution, plus `area` (m²), for 
 gbr/lookups/         CSV lookups (child → parent areas), named after the boundary file they match
 gbr/areas/           One file per GSS code (LAD, CTYUA counties), latest version, + index.csv
 gbr/README.md        User guide to filtering UK files (nations, lookups, Altair/Vega-Lite snippets)
+gbr/proposed/        Not-yet-official boundaries (announced SAs), same names as gbr/,
+                     with full/ and lookups/ inside
 gbr/sa/<slug>/       One folder per English Strategic Authority: SA, LAD, MSOA, LSOA files
 gbr/cities/london/   London subsets (legacy naming, see Known issues)
 usa/, usa/cities/nyc/  US states, counties, NYC (hand-made, not from pipeline)
@@ -43,7 +45,8 @@ metadata/            One JSON per pipeline output, mirroring the data path
 scripts/             ONS fetch + process pipeline (see below)
 examples/            Altair / Vega-Lite snippets and view_map.py previewer
 raw/                 Pipeline cache: ONS catalog CSV, raw GeoJSON downloads, and
-                     raw/areas/ (code lists, unpublished older sources) (git-ignored)
+                     raw/areas/ (code lists, unpublished older sources), raw/sa/
+                     (metropolitan county shapes) (git-ignored)
 ```
 
 ## Design rules
@@ -76,7 +79,8 @@ raw/                 Pipeline cache: ONS catalog CSV, raw GeoJSON downloads, and
   `ELE_MP` (Westminster constituencies; ONS calls these PCON).
 - `COVERAGE`: `UK`, `GB`, `EW`, `ENG`, `WLS`, `SCT`, `NIR`.
 - `_{MM}` is added only for geographies that ONS releases more than once a year (LAD, CTYUA,
-  CAUTH, PCON). Use the ONS vintage month (e.g. `_05` May, `_12` December).
+  CAUTH, PCON). Use the ONS vintage month (e.g. `_05` May, `_12` December). `SA` also has
+  `_{MM}`: the snapshot date the authorities are shown as at.
 - Same filename in `gbr/` and `gbr/full/` means the same vintage at two resolutions.
 - Nation subsets swap the coverage code (`LAD_UK_2025_12` → `LAD_WLS_2025_12`). Each one is
   an exact filter of its source file by the first letter of the GSS code (E/W/S/N). They
@@ -115,6 +119,33 @@ raw/                 Pipeline cache: ONS catalog CSV, raw GeoJSON downloads, and
 - When a new LAD or CTYUA BFC release is published, update `CURRENT_SOURCES` and rerun
   `scripts.areas`.
 
+### Strategic Authorities (`SA`, `scripts/strategic_authorities.py`)
+- Not an ONS geography. Built by dissolving published LAD files, so borders match the LAD
+  file in force on the snapshot date (`LAD_VINTAGE`). The register, membership and status
+  by date come from msa-data (`msa geographies export-map-data` →
+  `scripts/inputs/`). Edit them there, never here.
+- **One code is one footprint.** A council joining or leaving gives a new `MSA0xx` code
+  that `replaces` the old one; a tier change keeps the code. A LAD can sit in several
+  codes but in one SA per map (checked on build).
+- **One map per snapshot date** (`MAPS`). `gbr/SA_ENG_{date}` has the SAs legally in
+  force on the date. `gbr/proposed/SA_ENG_{date}` has every SA with a status on the date
+  (current, agreed, proposed, named) except those with `replaced_by`, which leave the
+  proposed map for their replacement. A new snapshot = a row set in msa-data's export plus
+  an entry in `LAD_VINTAGE` / `MAPS`.
+- Properties: `id name short status tier planned_tier gss_id cty_id established_from
+  mayor_from rgn_id itl1_id itl2_id itl2_2021_id` (+ `area` in full). `cty_id` is derived
+  here: the E10 (current or retired) or E11 county whose LADs, by interior point, are
+  exactly the SA's. The lookups add names, `cauth_id`, `body_id`, `replaces` and
+  `research_set`.
+- `gbr/sa/<slug>/` folders cover `FOLDER_MAP` (proposed Dec 2025: the msa-data research
+  set of 21 plus London). The LAD lookup's `sa_id` follows the same map.
+
+### Proposed boundaries (`gbr/proposed/`)
+- Mirrors `gbr/`: the same filename and subfolders (`full/`, `lookups/`), for boundaries
+  that are announced or agreed but not legally in force. Users switch by adding
+  `proposed/` to the path. Each file says what it shows through a `status` property.
+- Future uses: local government reorganisation proposals, new SA rounds.
+
 ### Resolution & size
 - `gbr/`: built from ONS **BGC** (generalised, clipped to coastline). Target: whole-UK file
   under about 1 MB for LAD-scale, under about 10 MB for LSOA-scale.
@@ -148,6 +179,7 @@ uv run python -m scripts.pipeline rebuild gbr/LAD_UK_2025_12.json  # re-process 
 uv run python -m scripts.subsets                         # nation subsets (SUBSET_SOURCES)
 uv run python -m scripts.lookups                         # lookup CSVs (gbr/lookups/)
 uv run python -m scripts.areas [--plan]                  # per-area files (gbr/areas/)
+uv run python -m scripts.strategic_authorities          # SA maps, lookups, gbr/sa/ folders
 uv run python -m scripts.validate [--repair] [files]    # polygon validity (default: all files)
 uv run python examples/view_map.py gbr/LAD_UK_2025_12.json   # preview in browser
 ```
@@ -181,6 +213,27 @@ builds every historic version ONS lists.
 
 ## Decision log
 Newest first. Record what was decided and why.
+
+- **2026-11-09** Strategic Authorities are now one map per snapshot date, current in
+  `gbr/` and proposed in the new `gbr/proposed/`: `SA_ENG_2025_12` (16),
+  `proposed/SA_ENG_2025_12` (22), `SA_ENG_2026_07` (20), `proposed/SA_ENG_2026_07` (22)
+  and `proposed/SA_ENG_2026_10` (30), each with full and lookup. ONS `CAUTH` lags new
+  authorities, and published charts need both "who is in force" and "what is planned".
+  A `proposed/` folder was chosen over an `SAP` prefix or a filename suffix so every
+  name stays the same and future proposed geographies (LGR, new SA rounds) fit too.
+- **2026-11-09** **Deliberate in-place change:** `gbr/SA_ENG_2025_12.json` (and full,
+  lookup) went from the 21 research-set SAs to the 16 legally in force on 31 Dec 2025,
+  London included, so a dated file never shows areas that weren't official on the date.
+  The 21 are `proposed/SA_ENG_2025_12` minus `MSA022` (`research_set` in the lookup).
+  Nothing downstream depended on the old file (maintainer's confirmation). Boundary
+  properties gain status, tier, planned tier, `gss_id`, `cty_id`, `established_from`,
+  `mayor_from`. `cauth_id` moved to the lookup only, since `gss_id` replaces it. The LAD
+  lookup's `sa_id` now includes the 33 London boroughs (`MSA022`).
+- **2026-11-09** SA snapshots use the LAD release in force on their date (Dec 2025 for
+  `2025_12`, May 2026 for the 2026 maps; LAD codes are the same in both). `cty_id` is
+  matched by membership, not hard-coded. E11 shapes come only from ONS's Dec 2022
+  "inc Metropolitan Counties" upper-tier file; retired E10 codes count (Cumbria
+  `E10000006`) because older county data uses them.
 
 - **2026-11-09** Added upper-tier authorities: `CTYUA_UK_2025_12` (standard 8%, same as
   LAD; full 50%), `CTYUA_ENG_2025_12`, and `ctyua_id`/`ctyua_name` in the LAD lookup.

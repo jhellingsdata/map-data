@@ -163,3 +163,119 @@ E07000202,Ipswich,MSA021,Norfolk and Suffolk
 E07000203,Mid Suffolk,MSA021,Norfolk and Suffolk
 E07000244,East Suffolk,MSA021,Norfolk and Suffolk
 E07000245,West Suffolk,MSA021,Norfolk and Suffolk
+E09000001,City of London,MSA022,Greater London
+E09000002,Barking and Dagenham,MSA022,Greater London
+E09000003,Barnet,MSA022,Greater London
+E09000004,Bexley,MSA022,Greater London
+E09000005,Brent,MSA022,Greater London
+E09000006,Bromley,MSA022,Greater London
+E09000007,Camden,MSA022,Greater London
+E09000008,Croydon,MSA022,Greater London
+E09000009,Ealing,MSA022,Greater London
+E09000010,Enfield,MSA022,Greater London
+E09000011,Greenwich,MSA022,Greater London
+E09000012,Hackney,MSA022,Greater London
+E09000013,Hammersmith and Fulham,MSA022,Greater London
+E09000014,Haringey,MSA022,Greater London
+E09000015,Harrow,MSA022,Greater London
+E09000016,Havering,MSA022,Greater London
+E09000017,Hillingdon,MSA022,Greater London
+E09000018,Hounslow,MSA022,Greater London
+E09000019,Islington,MSA022,Greater London
+E09000020,Kensington and Chelsea,MSA022,Greater London
+E09000021,Kingston upon Thames,MSA022,Greater London
+E09000022,Lambeth,MSA022,Greater London
+E09000023,Lewisham,MSA022,Greater London
+E09000024,Merton,MSA022,Greater London
+E09000025,Newham,MSA022,Greater London
+E09000026,Redbridge,MSA022,Greater London
+E09000027,Richmond upon Thames,MSA022,Greater London
+E09000028,Southwark,MSA022,Greater London
+E09000029,Sutton,MSA022,Greater London
+E09000030,Tower Hamlets,MSA022,Greater London
+E09000031,Waltham Forest,MSA022,Greater London
+E09000032,Wandsworth,MSA022,Greater London
+E09000033,Westminster,MSA022,Greater London
+E07000095,Broxbourne,MSA023,Hertfordshire
+E07000096,Dacorum,MSA023,Hertfordshire
+E07000098,Hertsmere,MSA023,Hertfordshire
+E07000099,North Hertfordshire,MSA023,Hertfordshire
+E07000102,Three Rivers,MSA023,Hertfordshire
+E07000103,Watford,MSA023,Hertfordshire
+E07000240,St Albans,MSA023,Hertfordshire
+E07000241,Welwyn Hatfield,MSA023,Hertfordshire
+E07000242,East Hertfordshire,MSA023,Hertfordshire
+E07000243,Stevenage,MSA023,Hertfordshire
+E06000035,Medway,MSA024,Kent and Medway
+E07000105,Ashford,MSA024,Kent and Medway
+E07000106,Canterbury,MSA024,Kent and Medway
+E07000107,Dartford,MSA024,Kent and Medway
+E07000108,Dover,MSA024,Kent and Medway
+E07000109,Gravesham,MSA024,Kent and Medway
+E07000110,Maidstone,MSA024,Kent and Medway
+E07000111,Sevenoaks,MSA024,Kent and Medway
+E07000112,Folkestone and Hythe,MSA024,Kent and Medway
+E07000113,Swale,MSA024,Kent and Medway
+E07000114,Thanet,MSA024,Kent and Medway
+E07000115,Tonbridge and Malling,MSA024,Kent and Medway
+E07000116,Tunbridge Wells,MSA024,Kent and Medway
+E06000030,Swindon,MSA025,Thames Valley
+E06000036,Bracknell Forest,MSA025,Thames Valley
+E06000037,West Berkshire,MSA025,Thames Valley
+E06000038,Reading,MSA025,Thames Valley
+E06000039,Slough,MSA025,Thames Valley
+E06000040,Windsor and Maidenhead,MSA025,Thames Valley
+E06000041,Wokingham,MSA025,Thames Valley
+E07000177,Cherwell,MSA025,Thames Valley
+E07000178,Oxford,MSA025,Thames Valley
+E07000179,South Oxfordshire,MSA025,Thames Valley
+E07000180,Vale of White Horse,MSA025,Thames Valley
+E07000181,West Oxfordshire,MSA025,Thames Valley
+E07000207,Elmbridge,MSA026,Surrey
+E07000208,Epsom and Ewell,MSA026,Surrey
+E07000209,Guildford,MSA026,Surrey
+E07000210,Mole Valley,MSA026,Surrey
+E07000211,Reigate and Banstead,MSA026,Surrey
+E07000212,Runnymede,MSA026,Surrey
+E07000213,Spelthorne,MSA026,Surrey
+E07000214,Surrey Heath,MSA026,Surrey
+E07000215,Tandridge,MSA026,Surrey
+E07000216,Waverley,MSA026,Surrey
+E07000217,Woking,MSA026,Surrey
+E06000016,Leicester,MSA027,"Leicester, Leicestershire and Rutland"
+E06000017,Rutland,MSA027,"Leicester, Leicestershire and Rutland"
+E07000129,Blaby,MSA027,"Leicester, Leicestershire and Rutland"
+E07000130,Charnwood,MSA027,"Leicester, Leicestershire and Rutland"
+E07000131,Harborough,MSA027,"Leicester, Leicestershire and Rutland"
+E07000132,Hinckley and Bosworth,MSA027,"Leicester, Leicestershire and Rutland"
+E07000133,Melton,MSA027,"Leicester, Leicestershire and Rutland"
+E07000134,North West Leicestershire,MSA027,"Leicester, Leicestershire and Rutland"
+E07000135,Oadby and Wigston,MSA027,"Leicester, Leicestershire and Rutland"
+E06000021,Stoke-on-Trent,MSA028,Stoke and Staffordshire
+E07000192,Cannock Chase,MSA028,Stoke and Staffordshire
+E07000193,East Staffordshire,MSA028,Stoke and Staffordshire
+E07000194,Lichfield,MSA028,Stoke and Staffordshire
+E07000195,Newcastle-under-Lyme,MSA028,Stoke and Staffordshire
+E07000196,South Staffordshire,MSA028,Stoke and Staffordshire
+E07000197,Stafford,MSA028,Stoke and Staffordshire
+E07000198,Staffordshire Moorlands,MSA028,Stoke and Staffordshire
+E07000199,Tamworth,MSA028,Stoke and Staffordshire
+E06000054,Wiltshire,MSA029,Wessex
+E06000058,"Bournemouth, Christchurch and Poole",MSA029,Wessex
+E06000059,Dorset,MSA029,Wessex
+E06000066,Somerset,MSA029,Wessex
+E06000052,Cornwall,MSA030,Cornwall
+E06000026,Plymouth,MSA031,"Devon, Plymouth and Torbay"
+E06000027,Torbay,MSA031,"Devon, Plymouth and Torbay"
+E07000040,East Devon,MSA031,"Devon, Plymouth and Torbay"
+E07000041,Exeter,MSA031,"Devon, Plymouth and Torbay"
+E07000042,Mid Devon,MSA031,"Devon, Plymouth and Torbay"
+E07000043,North Devon,MSA031,"Devon, Plymouth and Torbay"
+E07000044,South Hams,MSA031,"Devon, Plymouth and Torbay"
+E07000045,Teignbridge,MSA031,"Devon, Plymouth and Torbay"
+E07000046,Torridge,MSA031,"Devon, Plymouth and Torbay"
+E07000047,West Devon,MSA031,"Devon, Plymouth and Torbay"
+E06000022,Bath and North East Somerset,MSA032,West of England
+E06000023,"Bristol, City of",MSA032,West of England
+E06000024,North Somerset,MSA032,West of England
+E06000025,South Gloucestershire,MSA032,West of England
