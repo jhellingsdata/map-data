@@ -153,84 +153,23 @@ Vega-Lite equivalent:
 
 ## 4. Strategic Authorities, and drilling into one
 
-Strategic Authorities (SAs) are England's mayoral and non-mayoral combined authorities and
-the Greater London Authority. They are not an ONS geography yet, and ONS's `CAUTH` file
-leaves out the GLA and authorities set up since its last release. So they are built here
-by merging the published LAD boundaries, which means their borders match the LAD file of
-the same date exactly.
+**Full guide: [`sa/README.md`](sa/README.md)**. It covers which file to use, every SA
+with its status by date, properties, codes and examples.
 
-SAs change often, so there is one map per date. Files in `gbr/` show only the SAs legally
-in force on that date. Files in [`proposed/`](proposed/) use the same names, and add the
-areas that were agreed, proposed or named on that date, drawn on their planned footprints:
+Strategic Authorities (SAs: combined authorities and the Greater London Authority) are
+not an ONS geography, so they are built here by merging LADs, with one map per date.
+Files in `gbr/` show the SAs legally in force on the date. Files in `proposed/` add the
+areas agreed, proposed or named then:
 
-| File | SAs | What it shows |
-|---|---|---|
-| [SA_ENG_2025_12](SA_ENG_2025_12.json) | 16 | In force on 31 Dec 2025 (LAD Dec 2025 borders) |
-| [proposed/SA_ENG_2025_12](proposed/SA_ENG_2025_12.json) | 22 | Plus the 6 Devolution Priority Programme areas |
-| [SA_ENG_2026_07](SA_ENG_2026_07.json) | 20 | In force on 31 Jul 2026: 11 Established, 7 Mayoral, 2 Foundation (LAD May 2026 borders) |
-| [proposed/SA_ENG_2026_07](proposed/SA_ENG_2026_07.json) | 22 | Plus Greater Essex and Norfolk and Suffolk; West of England with North Somerset |
-| [proposed/SA_ENG_2026_10](proposed/SA_ENG_2026_10.json) | 30 | Budget 2026: plus 9 named areas; Devon, Plymouth and Torbay replaces Devon and Torbay |
-
-Each has a `full/` version with `area` (m²), e.g. [full/SA_ENG_2026_07](full/SA_ENG_2026_07.json),
-[proposed/full/SA_ENG_2026_10](proposed/full/SA_ENG_2026_10.json), and a lookup with one
-row per SA, e.g. [lookups/SA_ENG_2026_07.csv](lookups/SA_ENG_2026_07.csv),
-[proposed/lookups/SA_ENG_2026_10.csv](proposed/lookups/SA_ENG_2026_10.csv).
-
-SA properties:
-
-| Property | Meaning |
+| File | SAs |
 |---|---|
-| `id` | Our `MSA0xx` code. One code is one footprint: when a council joins, the new area gets a new code (West of England with North Somerset is `MSA032`, not `MSA009`) |
-| `name`, `short` | Name and acronym (e.g. `GMCA`) |
-| `status` | On the file's date: `current` (legally in force), `agreed` (Devolution Priority Programme), `proposed` (expansion proposal submitted) or `named` (named in Budget 2026) |
-| `tier` | For current SAs: `established`, `mayoral` or `foundation`. A mayoral SA still waiting for its first election is `mayoral` |
-| `planned_tier` | The tier the government plans, for areas that are not current (and Lancashire, Oct 2026) |
-| `gss_id` | ONS code of the authority: `E47…` combined authority code, or `E61000001` for the GLA. Blank for authorities ONS hasn't coded yet |
-| `cty_id` | The county whose councils are exactly the SA's: metropolitan county (`E11…`: Greater Manchester, South Yorkshire, West Midlands, West Yorkshire) or county (`E10…`: Hertfordshire, Surrey, and Cumbria, a code retired in 2023 but used in older data) |
-| `established_from` | Date the first authority on this footprint was legally set up, e.g. `2011-04-01` for Greater Manchester. It can be later than the file's date for an area that was then only agreed |
-| `mayor_from` | Year of the first mayoral election for this footprint, held or scheduled (a number; empty if none) |
-| `rgn_id`, `itl1_id` | Parent region and ITL1. Thames Valley and Greater Lincolnshire span two, written `E12000003;E12000004` |
-| `itl2_id`, `itl2_2021_id` | The ITL2 that is exactly the SA, where one is |
-
-A blank means there is no such value. The lookups add names for each code, plus `cauth_id`,
-`body_id` (codes of the same authority share it: `MSA032` → `MSA009`), `replaces` (the
-footprint a new code takes over from) and `research_set` (the 21 SAs used in the msa-data
-research: everything in `proposed/SA_ENG_2025_12` except London, `MSA022`).
-
-Colour by tier, or keep only the research set:
-
-```python
-sa = alt.Data(url=base + "SA_ENG_2026_07.json", format=alt.DataFormat(feature="geog", type="topojson"))
-alt.Chart(sa).mark_geoshape(stroke="white").encode(color="properties.tier:N").project("mercator")
-
-research = alt.Data(url=base + "proposed/SA_ENG_2025_12.json", format=alt.DataFormat(feature="geog", type="topojson"))
-alt.Chart(research).mark_geoshape().transform_filter("datum.properties.id != 'MSA022'")
-```
+| [SA_ENG_2026_07](SA_ENG_2026_07.json) | 20 in force on 31 Jul 2026, with `tier` |
+| [SA_ENG_2025_12](SA_ENG_2025_12.json) | 16 in force on 31 Dec 2025 |
+| [proposed/SA_ENG_2026_10](proposed/SA_ENG_2026_10.json) | 30 on the Budget 2026 map |
+| `sa/<slug>/` | One SA with its LADs, MSOAs and LSOAs, e.g. [`sa/msa022_greater_london/`](sa/msa022_greater_london/) |
 
 `lookups/LAD_UK_2025_12.csv` has `sa_id` / `sa_name` for each LAD in one of the 22 SAs on
-`proposed/SA_ENG_2025_12`. For other dates, check the SA's `status` in that date's file.
-
-### Drilling into one SA
-
-`sa/<slug>/` holds one folder per SA on `proposed/SA_ENG_2025_12` (the research set and
-London), e.g. `sa/msa016_cumbria/`, `sa/msa022_greater_london/`. Each folder has
-`SA.json`, `LAD.json`, `MSOA.json` and `LSOA.json` (2021).
-
-The four files in an SA folder are all built from the same LSOAs, so their borders
-overlay exactly. LSOAs carry `msoa_id` and `lad_id`, and MSOAs `lad_id`, for colouring
-or highlighting by parent. Layer them to show small areas under their district and SA
-borders:
-
-```python
-sa = base + "sa/msa016_cumbria/"
-def layer(f): return alt.Data(url=sa + f, format=alt.DataFormat(feature="geog", type="topojson"))
-
-alt.layer(
-    alt.Chart(layer("LSOA.json")).mark_geoshape(fill="#e8eef5", stroke="#9fb3c8", strokeWidth=0.2),
-    alt.Chart(layer("LAD.json")).mark_geoshape(filled=False, stroke="#c0392b", strokeWidth=1.4),
-    alt.Chart(layer("SA.json")).mark_geoshape(filled=False, stroke="black", strokeWidth=1.8),
-).project("mercator")
-```
+`proposed/SA_ENG_2025_12`.
 
 ## 5. Lower-tier and upper-tier local authorities
 

@@ -36,6 +36,7 @@ gbr/README.md        User guide to filtering UK files (nations, lookups, Altair/
 gbr/proposed/        Not-yet-official boundaries (announced SAs), same names as gbr/,
                      with full/ and lookups/ inside
 gbr/sa/<slug>/       One folder per English Strategic Authority: SA, LAD, MSOA, LSOA files
+gbr/sa/README.md     User guide to SA files (which file, SA status table, properties)
 gbr/cities/london/   London subsets (legacy naming, see Known issues)
 usa/, usa/cities/nyc/  US states, counties, NYC (hand-made, not from pipeline)
 world/               World countries (Natural Earth, hand-made)
@@ -139,6 +140,9 @@ raw/                 Pipeline cache: ONS catalog CSV, raw GeoJSON downloads, and
   `research_set`.
 - `gbr/sa/<slug>/` folders cover `FOLDER_MAP` (proposed Dec 2025: the msa-data research
   set of 21 plus London). The LAD lookup's `sa_id` follows the same map.
+- `gbr/sa/README.md` is the SA user guide; `gbr/README.md` section 4 only points to it.
+  Its "Every SA" table and file tables are written by hand from the inputs: update them
+  whenever the msa-data export or `MAPS` changes.
 
 ### Proposed boundaries (`gbr/proposed/`)
 - Mirrors `gbr/`: the same filename and subfolders (`full/`, `lookups/`), for boundaries
