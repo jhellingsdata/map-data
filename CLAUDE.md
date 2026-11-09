@@ -31,16 +31,19 @@ Goals:
 gbr/                 UK boundaries, standard resolution (charting whole UK / nations)
 gbr/full/            UK boundaries near full resolution, plus `area` (m²), for zooming / subsetting
 gbr/lookups/         CSV lookups (child → parent areas), named after the boundary file they match
+gbr/areas/           One file per GSS code (LAD, CTYUA counties), latest version, + index.csv
 gbr/README.md        User guide to filtering UK files (nations, lookups, Altair/Vega-Lite snippets)
 gbr/sa/<slug>/       One folder per English Strategic Authority: SA, LAD, MSOA, LSOA files
 gbr/cities/london/   London subsets (legacy naming, see Known issues)
 usa/, usa/cities/nyc/  US states, counties, NYC (hand-made, not from pipeline)
 world/               World countries (Natural Earth, hand-made)
 metadata/            One JSON per pipeline output, mirroring the data path
-                     (gbr/full/X.json → metadata/gbr/full/X.json)
+                     (gbr/full/X.json → metadata/gbr/full/X.json); gbr/areas/ has one
+                     shared file, metadata/gbr/areas.json
 scripts/             ONS fetch + process pipeline (see below)
 examples/            Altair / Vega-Lite snippets and view_map.py previewer
-raw/                 Pipeline cache: ONS catalog CSV + raw GeoJSON downloads (git-ignored)
+raw/                 Pipeline cache: ONS catalog CSV, raw GeoJSON downloads, and
+                     raw/areas/ (code lists, unpublished older sources) (git-ignored)
 ```
 
 ## Design rules
@@ -61,17 +64,19 @@ raw/                 Pipeline cache: ONS catalog CSV + raw GeoJSON downloads (gi
 - `gbr/full/` files also carry **`area`** in m². **Always take area from the
   full-resolution (BFC) source**, never from simplified geometry, so it is the most
   correct value available. Normally this is ONS `Shape__Area` (calculated on the BFC in
-  British National Grid), passed through unchanged. If a source reports area in square degrees (WGS84 re-publishes,
-  e.g. LAD Dec 2016), the pipeline computes it from geometry in EPSG:27700 instead. This is
+  British National Grid), passed through unchanged. The pipeline checks every source's area
+  field against its geometry in EPSG:27700. If the median ratio is more than 2% from 1
+  (square degrees in WGS84 re-publishes such as LAD Dec 2016, Web Mercator m² in LAD Dec
+  2019), it computes area from the unsimplified geometry in EPSG:27700 instead. This is
   within about 0.02% of ONS values.
 
 ### File naming (UK)
 `{PREFIX}_{COVERAGE}_{YEAR}[_{MM}].json`
-- `PREFIX`: geography code. `LAD`, `CAUTH`, `SA`, `LSOA`, `MSOA`, `ITL1-3`, `NUTS1-3`, `CTRY`,
+- `PREFIX`: geography code. `LAD` (lower tier), `CTYUA` (upper tier), `CAUTH`, `SA`, `LSOA`, `MSOA`, `ITL1-3`, `NUTS1-3`, `CTRY`,
   `ELE_MP` (Westminster constituencies; ONS calls these PCON).
 - `COVERAGE`: `UK`, `GB`, `EW`, `ENG`, `WLS`, `SCT`, `NIR`.
-- `_{MM}` is added only for geographies that ONS releases more than once a year (LAD, CAUTH,
-  PCON). Use the ONS vintage month (e.g. `_05` May, `_12` December).
+- `_{MM}` is added only for geographies that ONS releases more than once a year (LAD, CTYUA,
+  CAUTH, PCON). Use the ONS vintage month (e.g. `_05` May, `_12` December).
 - Same filename in `gbr/` and `gbr/full/` means the same vintage at two resolutions.
 - Nation subsets swap the coverage code (`LAD_UK_2025_12` → `LAD_WLS_2025_12`). Each one is
   an exact filter of its source file by the first letter of the GSS code (E/W/S/N). They
@@ -79,13 +84,36 @@ raw/                 Pipeline cache: ONS catalog CSV + raw GeoJSON downloads (gi
 
 ### Lookups (`gbr/lookups/*.csv`)
 - Named after the boundary file whose `id`s they match, with one row per child area.
-- Columns are `{level}_id` / `{level}_name` in lowercase (`lad`, `ctry`, `rgn`, `cauth`,
+- Columns are `{level}_id` / `{level}_name` in lowercase (`lad`, `ctyua`, `ctry`, `rgn`, `cauth`,
   `itl1`…, `lsoa`, `msoa`). Leave a value blank where the level doesn't exist (e.g. `rgn`
   outside England).
 - Sources are ONS lookups with item ids pinned in `scripts/lookups.py`. Every child must
   map to exactly one parent. Where ONS data doesn't nest, resolve it with an explicit,
   commented best-fit override (e.g. North Ayrshire → ITL3 TLM93).
 - Builds check the lookup against the boundary file's ids and fail on any mismatch.
+
+### Local authority tiers
+- `LAD` is the lower tier (districts plus single-tier councils). `CTYUA` is the upper tier
+  (21 English counties `E10…` plus the same single-tier councils). A single-tier council
+  has the same code and area at both tiers, so only `E07` districts and `E10` counties differ.
+- The LAD lookup's `ctyua_*` columns map each LAD to its upper-tier authority (itself if
+  single tier). Most ONS data is lower tier; county-run services (DfE, OHID, social care)
+  are often upper tier.
+
+### Per-area files (`gbr/areas/{code}.json`)
+- One file per GSS code ever seen in an ONS LAD or CTYUA **BFC** release since 2009:
+  `E10` codes from CTYUA, all others from LAD. `index.csv` lists `id`, `name`, `tier`
+  (`lower`/`upper`/`both`), `current`, `release`, `area`.
+- **Latest wins.** Each file holds the newest release that contains its code, and is
+  updated in place when ONS revises the geometry. Retired codes keep their last release.
+  Never add version folders here; users who need a specific release filter the dated file.
+- Files are **exact extracts** of a full-resolution file (arcs and quantisation grid
+  copied unchanged, via `scripts/areas.py:extract`), so they overlay `gbr/full/` exactly
+  and inherit its validity and ONS `area`. Current codes come from the `gbr/full/` files in
+  `CURRENT_SOURCES`; older releases are built by the pipeline into `raw/areas/sources/`
+  and not published.
+- When a new LAD or CTYUA BFC release is published, update `CURRENT_SOURCES` and rerun
+  `scripts.areas`.
 
 ### Resolution & size
 - `gbr/`: built from ONS **BGC** (generalised, clipped to coastline). Target: whole-UK file
@@ -119,6 +147,7 @@ uv run python -m scripts.pipeline rebuild gbr/LAD_UK_2025_12.json  # re-process 
                                                     # file from its metadata (current config)
 uv run python -m scripts.subsets                         # nation subsets (SUBSET_SOURCES)
 uv run python -m scripts.lookups                         # lookup CSVs (gbr/lookups/)
+uv run python -m scripts.areas [--plan]                  # per-area files (gbr/areas/)
 uv run python -m scripts.validate [--repair] [files]    # polygon validity (default: all files)
 uv run python examples/view_map.py gbr/LAD_UK_2025_12.json   # preview in browser
 ```
@@ -152,6 +181,30 @@ builds every historic version ONS lists.
 
 ## Decision log
 Newest first. Record what was decided and why.
+
+- **2026-11-09** Added upper-tier authorities: `CTYUA_UK_2025_12` (standard 8%, same as
+  LAD; full 50%), `CTYUA_ENG_2025_12`, and `ctyua_id`/`ctyua_name` in the LAD lookup.
+  Many county-run services publish upper-tier data, and LAD alone couldn't map it. The
+  prefix follows ONS (`CTYUA`), not the health-data terms UTLA/LTLA. The "inc Metropolitan
+  Counties" catalog variant is excluded because it would overwrite the same filename.
+  Grouped LTLAs (Cornwall + Scilly, Hackney + City) are not published.
+- **2026-11-09** Area units are now checked by geometry, not by guessing from the first
+  value. LAD Dec 2019 BFC reports `Shape__Area` in Web Mercator m² (about 2.6× too large
+  in England), which the old sub-1 "square degrees" test missed. It is used only for the
+  four Buckinghamshire districts in `gbr/areas/`. Every other source matches geodesic
+  area to within 0.4%.
+- **2026-11-09** Added `gbr/areas/{code}.json`, one file per LAD/CTYUA code, cut from
+  full-resolution files so `area` is ONS `Shape__Area`. It uses one flat folder by code
+  (codes are unique across geographies) and **latest wins**, not version folders, to
+  avoid hundreds of near-identical copies per release. Retired codes are included, from
+  their last BFC release, so data on old codes still has a shape. One shared metadata
+  file replaces about 440 per-file ones.
+- **2026-11-09** **Same code ≠ same geometry.** GSS policy gives a new code for a legal
+  boundary change, and never for a rename. But ONS redraws geometry under unchanged codes:
+  303 of 346 LAD codes kept from Dec 2016 to Dec 2023 changed area, mostly coastline
+  remaps (Lancaster −9.3 km², Wirral +3.9 km²). Dec 2025 → May 2026 changed 36, including
+  about 0.16 km² moving from Bristol to North Somerset. A code identifies the same area
+  for joining data; dated files are still needed for exact geometry.
 
 - **2026-10-29** All published polygons must be valid, and are now: 0 invalid features
   across every file. There were two causes:

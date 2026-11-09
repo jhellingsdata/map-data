@@ -1,0 +1,33 @@
+{
+  "source": {
+    "id": "ac443ef4c1de497a9675a6e72290f9cc",
+    "title": "Counties and Unitary Authorities (December 2025) Boundaries UK BGC",
+    "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Counties_and_Unitary_Authorities_December_2025_Boundaries_UK_BGC/FeatureServer",
+    "downloaded": "2026-11-09"
+  },
+  "processing": {
+    "boundary_type": "CTYUA",
+    "id_field": "CTYUA25CD",
+    "name_field": "CTYUA25NM",
+    "extra_fields": {},
+    "simplification_pct": 8,
+    "method": "visvalingam weighted keep-shapes",
+    "projection": "wgs84",
+    "processed": "2026-11-09",
+    "mapshaper_version": "0.7.25",
+    "validity_repairs": [
+      {
+        "id": "E10000024",
+        "area_change_pct": -6.6756
+      }
+    ]
+  },
+  "output": {
+    "file": "gbr/CTYUA_UK_2025_12.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 218,
+    "source_size_mb": 18.84,
+    "output_size_mb": 0.36
+  }
+}

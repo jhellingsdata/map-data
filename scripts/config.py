@@ -103,6 +103,41 @@ BOUNDARY_CONFIGS = {
         "download_page_size": 5,
     },
 
+    # Upper-tier local authorities: English counties (E10) plus every unitary-level
+    # authority, which shares its LAD code and area
+    "CTYUA": {
+        "name": "Counties and Unitary Authorities",
+        "title_keywords": ["Counties and Unitary Authorities"],
+        "edition_keyword": "BGC",
+        # Variant that adds metropolitan county shapes; would overwrite the same filename
+        "title_exclude": ["inc Metropolitan Counties"],
+        "coverage_default": "UK",
+        "id_pattern": r"CTYUA\d{2}CD",
+        "name_pattern": r"CTYUA\d{2}NM",
+        "extra_fields": {},
+        # Same source scale as LAD BGC, so the same percentage
+        "simplification_pct": 8,
+        "output_prefix": "CTYUA",
+        "output_dir": "gbr",
+        "versioned_by_month": True,
+    },
+
+    "CTYUA_BFC": {
+        "name": "Counties and Unitary Authorities (Full Resolution)",
+        "title_keywords": ["Counties and Unitary Authorities"],
+        "edition_keyword": "BFC",
+        "title_exclude": ["inc Metropolitan Counties"],
+        "coverage_default": "UK",
+        "id_pattern": r"CTYUA\d{2}CD",
+        "name_pattern": r"CTYUA\d{2}NM",
+        "extra_fields": {"area": r"Shape_+Area"},
+        "simplification_pct": 50,
+        "output_prefix": "CTYUA",
+        "output_dir": "gbr/full",
+        "versioned_by_month": True,
+        "download_page_size": 10,
+    },
+
     # ------------------------------------------------------------------
     # Census output areas
     # ------------------------------------------------------------------

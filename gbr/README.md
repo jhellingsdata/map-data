@@ -7,6 +7,8 @@ Authority. There are three ways to get there, from simplest to most flexible:
 2. [Filter by code in the chart](#2-filter-by-code-in-the-chart)
 3. [Join a lookup table and filter by any parent area](#3-filter-by-parent-area-with-a-lookup)
 
+For one local authority on its own, use the [one-file-per-area folder](#6-one-area-per-file-areas).
+
 All URLs below start with:
 ```
 https://raw.githubusercontent.com/jhellingsdata/map-data/refs/heads/main/
@@ -19,7 +21,7 @@ file:
 
 | Part | Values |
 |---|---|
-| GEOGRAPHY | `LAD` local authorities, `CAUTH` combined authorities, `SA` Strategic Authorities, `ELE_MP` Westminster constituencies, `LSOA`, `MSOA`, `ITL1`–`ITL3`, `NUTS1`–`NUTS3` |
+| GEOGRAPHY | `LAD` local authorities (lower tier), `CTYUA` counties and unitary authorities (upper tier), `CAUTH` combined authorities, `SA` Strategic Authorities, `ELE_MP` Westminster constituencies, `LSOA`, `MSOA`, `ITL1`–`ITL3`, `NUTS1`–`NUTS3` |
 | COVERAGE | `UK`, `GB`, `EW` (England & Wales), `ENG`, `WLS`, `SCT`, `NIR` |
 | YEAR, MONTH | The ONS boundary version, e.g. `2025_12` = December 2025 |
 
@@ -93,7 +95,7 @@ belongs to. Each one has the same name as the boundary file it matches:
 
 | Lookup | One row per | Columns |
 |---|---|---|
-| [lookups/LAD_UK_2025_12.csv](lookups/LAD_UK_2025_12.csv) | Local authority (Dec 2025; codes also match May 2025 and May 2026. Combined authorities as of May 2025) | `lad_id`, `lad_name`, `ctry_*` country, `rgn_*` region (England only), `cauth_*` combined authority (England only), `itl1_*`, `itl2_*`, `itl3_*` |
+| [lookups/LAD_UK_2025_12.csv](lookups/LAD_UK_2025_12.csv) | Local authority (Dec 2025; codes also match May 2025 and May 2026. Combined authorities as of May 2025) | `lad_id`, `lad_name`, `ctyua_*` upper-tier authority, `ctry_*` country, `rgn_*` region (England only), `cauth_*` combined authority (England only), `itl1_*`, `itl2_*`, `itl3_*` |
 | [lookups/LSOA_EW_2021.csv](lookups/LSOA_EW_2021.csv) | LSOA (2021) | `lsoa_*`, `msoa_*`, `lad_*` (LAD Dec 2025) |
 
 Each `*` stands for `_id` and `_name`. The sources are official ONS lookups.
@@ -182,6 +184,79 @@ alt.layer(
     alt.Chart(layer("SA.json")).mark_geoshape(filled=False, stroke="black", strokeWidth=1.8),
 ).project("mercator")
 ```
+
+## 5. Lower-tier and upper-tier local authorities
+
+Much of England has two tiers of council. **District councils** (lower tier) handle
+things like housing, planning and bin collections. **County councils** (upper tier) handle
+schools, social care and roads. Everywhere else, one council does both: unitary
+authorities, metropolitan districts, London boroughs, and every council in Wales,
+Scotland and Northern Ireland.
+
+| File | Tier | What it covers |
+|---|---|---|
+| `LAD_*` | Lower (often called LTLA) | Every district plus every single-tier council |
+| `CTYUA_*` ([UK](CTYUA_UK_2025_12.json), [England](CTYUA_ENG_2025_12.json), [full](full/CTYUA_UK_2025_12.json)) | Upper (often called UTLA) | The 21 English counties (codes starting `E10`) plus every single-tier council |
+
+A single-tier council has the **same code and shape in both files**, e.g. Leeds is
+`E08000035` in each. Only the counties and their districts (codes starting `E07`) differ.
+
+Which file to use depends on how the data is published. Look at the codes: if they
+include `E10…` codes, use `CTYUA`; if they include `E07…` codes, use `LAD`. Most ONS
+statistics are lower tier. Data on services run by county councils (for example,
+schools, children's services, adult social care and public health) is often upper tier.
+The `ctyua_id` / `ctyua_name` columns in
+[lookups/LAD_UK_2025_12.csv](lookups/LAD_UK_2025_12.csv) give each district its county
+(and each single-tier council itself), so upper-tier data can be joined onto a LAD map.
+
+Some health data uses *grouped* lower-tier areas, with Cornwall and the Isles of Scilly
+together, and Hackney and the City of London together. Those groupings aren't published
+here, so join the data to `LAD` and expect those four areas to need a manual fix.
+
+## 6. One area per file (`areas/`)
+
+Every local authority has its own file, named by its code:
+
+```
+gbr/areas/{code}.json         e.g. gbr/areas/E08000035.json  (Leeds)
+```
+
+The folder covers both tiers: districts, single-tier councils and English counties (`E10…`).
+It also has codes that no longer exist (e.g. `E07000004` Aylesbury Vale, abolished
+2020), so older data still has a shape. [`areas/index.csv`](areas/index.csv) lists every
+file:
+
+| Column | Meaning |
+|---|---|
+| `id`, `name` | Code and name |
+| `tier` | `lower` (district), `upper` (county) or `both` (single-tier council) |
+| `current` | `True` if the code is in use in the latest ONS release |
+| `release` | The ONS release the shape comes from, e.g. `LAD_UK_2026_05` |
+| `area` | Land area in m² (ONS, from the full-resolution boundary) |
+
+Each file is cut from the full-resolution boundaries (the same shape as in `full/`) and has
+`id`, `name` and `area`. Each code has **one file, holding its latest version**. ONS
+sometimes redraws a boundary slightly without changing the code (e.g. coastline updates),
+and when it does the file is updated. If you need the shape from a particular release,
+filter the dated file instead.
+
+Map one authority, or highlight it on a national map:
+
+```python
+def topo(url): return alt.Data(url=url, format=alt.DataFormat(feature="geog", type="topojson"))
+
+leeds = alt.Chart(topo(base + "areas/E08000035.json")).mark_geoshape(fill="#c0392b")
+leeds.project("mercator")                                   # zoomed to Leeds
+
+alt.layer(
+    alt.Chart(topo(base + "LAD_ENG_2026_05.json")).mark_geoshape(fill="#e6e6e6", stroke="white", strokeWidth=0.3),
+    leeds,
+).project("mercator")                                       # Leeds within England
+```
+
+The shapes line up exactly with the `full/` file of the same release. Standard `gbr/`
+files are simplified more, so their edges differ slightly, which is only noticeable when
+zoomed in.
 
 ## Things to watch
 

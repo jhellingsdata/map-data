@@ -80,11 +80,15 @@ def build_one(
     source_url: str,
     output_path: Path,
     mapshaper_ver: str,
+    metadata_path: Path | None = None,
 ) -> bool:
-    """Download (or reuse cached), process and write metadata for one ONS item."""
+    """Download (or reuse cached), process and write metadata for one ONS item.
+
+    Metadata mirrors the data path by default (gbr/full/X.json →
+    metadata/gbr/full/X.json); pass `metadata_path` for unpublished builds.
+    """
     cfg = BOUNDARY_CONFIGS[btype]
-    # Metadata mirrors the data path: gbr/full/X.json → metadata/gbr/full/X.json
-    metadata_path = METADATA_DIR / output_path
+    metadata_path = metadata_path or METADATA_DIR / output_path
 
     # Download
     try:

@@ -1,0 +1,24 @@
+{
+  "source": {
+    "file": "gbr/CTYUA_UK_2025_12.json"
+  },
+  "processing": {
+    "filter": "id starts with 'E' (ENG)",
+    "validity_repairs": [
+      "E06000010",
+      "E06000065",
+      "E10000011",
+      "E10000012",
+      "E10000016",
+      "E10000032"
+    ],
+    "processed": "2026-11-09"
+  },
+  "output": {
+    "file": "gbr/CTYUA_ENG_2025_12.json",
+    "format": "topojson",
+    "objects_key": "geog",
+    "feature_count": 153,
+    "output_size_mb": 0.18
+  }
+}

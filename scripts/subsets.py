@@ -43,6 +43,8 @@ SUBSET_SOURCES = {
     "gbr/LAD_UK_2021_05.json": ["ENG"],
     "gbr/LAD_UK_2018_12.json": ["SCT"],
     "gbr/LAD_UK_2016_12.json": ["SCT"],
+    # Upper tier: only England has counties; elsewhere CTYUA = LAD, so England only
+    "gbr/CTYUA_UK_2025_12.json": ["ENG"],
     "gbr/ELE_MP_UK_2024_07.json": None,
     "gbr/LSOA_EW_2021.json": None,
     "gbr/MSOA_EW_2021.json": None,

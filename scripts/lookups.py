@@ -128,11 +128,12 @@ def _check_matches_boundary(df: pd.DataFrame, key: str, boundary_path: str) -> N
 # ---------------------------------------------------------------------------
 
 def build_lad_2025() -> Path:
-    """LAD (Dec 2025) → country, region, combined authority, Strategic Authority, ITL1-3."""
+    """LAD (Dec 2025) → upper-tier authority, country, region, combined authority,
+    Strategic Authority, ITL1-3."""
     # ONS lookups for LAD25 are dated April/May 2025; LAD codes and names are
     # identical in the May and December 2025 boundaries, so they apply to both.
     ctry = _levels(fetch_lookup("ward_ctry_2025_05"),
-                   {"lad": "LAD25", "ctry": "CTRY25", "rgn": "RGN25"})
+                   {"lad": "LAD25", "ctyua": "CTYUA25", "ctry": "CTRY25", "rgn": "RGN25"})
     itl = _levels(fetch_lookup("lad_itl_2025_04"),
                   {"lad": "LAD25", "itl1": "ITL125", "itl2": "ITL225", "itl3": "ITL325"})
     split = itl["lad_id"].isin(ITL3_BEST_FIT.keys())
@@ -149,12 +150,15 @@ def build_lad_2025() -> Path:
     sa = pd.read_csv(SA_LADS, dtype=str)[["lad_id", "sa_id", "sa_name"]]
     df = df.merge(_one_per(sa, "lad_id"), on="lad_id", how="left")
     df = df[[
-        "lad_id", "lad_name", "ctry_id", "ctry_name", "rgn_id", "rgn_name",
+        "lad_id", "lad_name", "ctyua_id", "ctyua_name", "ctry_id", "ctry_name", "rgn_id", "rgn_name",
         "cauth_id", "cauth_name", "sa_id", "sa_name", "itl1_id", "itl1_name",
         "itl2_id", "itl2_name", "itl3_id", "itl3_name",
     ]].sort_values("lad_id")
 
     _check_matches_boundary(df, "lad_id", "gbr/LAD_UK_2025_12.json")
+    # Upper tier: a unitary-level LAD is its own CTYUA; districts map to their county
+    ctyua = df[["ctyua_id"]].drop_duplicates()
+    _check_matches_boundary(ctyua, "ctyua_id", "gbr/CTYUA_UK_2025_12.json")
     cauth_ids = set(_boundary_ids("gbr/CAUTH_ENG_2025_12.json"))
     if set(df["cauth_id"].dropna()) != cauth_ids:
         print(f"  Warning: CAUTH lookup (May 2025) differs from CAUTH Dec 2025 boundaries: "

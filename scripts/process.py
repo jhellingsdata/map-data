@@ -22,10 +22,12 @@ from scripts.config import BOUNDARY_CONFIGS
 from scripts.validate import repair_file
 
 # Marker used in extra_fields when 'area' must be computed from geometry rather
-# than passed through. Some ONS services are re-published in WGS84, so their
-# Shape__Area is in square degrees. We then compute area in British National Grid
-# (m²), which matches ONS's own values to within ~0.02%.
+# than passed through. Some ONS services report Shape__Area in another CRS: square
+# degrees (WGS84 re-publishes) or Web Mercator m² (e.g. LAD Dec 2019, ~2.6x too big
+# in England). We then compute area in British National Grid (m²), which matches
+# ONS's own BNG values to within ~0.02%.
 COMPUTED_AREA = "computed:EPSG:27700"
+AREA_TOLERANCE = 0.02  # max |median(BNG area / source area) - 1| to trust the source
 
 
 def detect_fields(
@@ -72,8 +74,9 @@ def detect_fields(
     extra_fields: dict[str, str] = {}
     for target_name, pattern in (extra_field_patterns or {}).items():
         found = _match_field(fields, pattern)
-        if found and target_name == "area" and _is_square_degrees(first_values.get(found)):
-            print(f"  Warning: {found} looks like square degrees ({first_values[found]}), "
+        ratio = _area_ratio(shp_path, found) if found and target_name == "area" else 1.0
+        if abs(ratio - 1) > AREA_TOLERANCE:
+            print(f"  Warning: {found} is not BNG m² (median BNG/{found} = {ratio:.4g}), "
                   f"computing area from geometry instead")
             extra_fields[target_name] = COMPUTED_AREA
         elif found:
@@ -91,12 +94,17 @@ def _match_field(fields: list[str], pattern: str) -> Optional[str]:
     return None
 
 
-def _is_square_degrees(value: Optional[str]) -> bool:
-    """No UK boundary is under 1 m², so a sub-1 area must be in square degrees."""
-    try:
-        return float(value) < 1
-    except (TypeError, ValueError):
-        return False
+def _area_ratio(source_path: Path, field: str) -> float:
+    """Median of (area in British National Grid / `field`) over the source features."""
+    result = subprocess.run(
+        ["mapshaper", "-i", str(source_path), "-proj", "EPSG:27700",
+         "-each", f"r = this.area / {field}", "-calc", "median(r)"],
+        capture_output=True, text=True, timeout=600,
+    )
+    match = re.search(r"median\(r\):\s*([-\d.eE+]+)", result.stdout + result.stderr)
+    if result.returncode != 0 or not match:
+        raise RuntimeError(f"Could not check {field} units:\n{result.stderr}")
+    return float(match.group(1))
 
 
 def process_boundary(
